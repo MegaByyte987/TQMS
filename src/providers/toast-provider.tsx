@@ -8,9 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { cn } from "@/lib/cn";
-
-type ToastKind = "success" | "error" | "info";
+import { Toast, ToastViewport, type ToastKind } from "@/components/ui/toast";
 
 interface ToastItem {
   id: string;
@@ -40,26 +38,13 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={value}>
       {children}
-      <div
-        aria-live="polite"
-        aria-atomic="true"
-        className="pointer-events-none fixed bottom-4 right-4 z-50 flex w-full max-w-sm flex-col gap-2"
-      >
+      <ToastViewport>
         {items.map((t) => (
-          <div
-            key={t.id}
-            role="status"
-            className={cn(
-              "pointer-events-auto animate-fade-in rounded-md border px-4 py-3 text-sm shadow-md",
-              t.kind === "success" && "border-emerald-200 bg-emerald-50 text-emerald-900",
-              t.kind === "error" && "border-rose-200 bg-rose-50 text-rose-900",
-              t.kind === "info" && "border-slate-200 bg-white text-slate-900"
-            )}
-          >
+          <Toast key={t.id} kind={t.kind}>
             {t.message}
-          </div>
+          </Toast>
         ))}
-      </div>
+      </ToastViewport>
     </ToastContext.Provider>
   );
 }
