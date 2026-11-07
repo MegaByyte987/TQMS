@@ -1,0 +1,220 @@
+"use client";
+
+import { useCallback, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import type { ColumnDef } from "@tanstack/react-table";
+import { Download, Printer } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/components/layout/page-header";
+import { DataTable } from "@/components/shared/data-table/data-table";
+import { FilterBar } from "@/components/shared/filter-bar";
+import { useDetailEntryReport } from "../hooks/use-reports";
+import { reportsApi } from "../api";
+import { useToast } from "@/providers/toast-provider";
+import { formatWeight } from "@/lib/formatters";
+import { displayBS, todayBS } from "@/lib/bs-date";
+import type { DetailEntryRow } from "../types";
+
+function clampPage(v: number): number {
+  return Number.isFinite(v) && v >= 1 ? Math.floor(v) : 1;
+}
+
+export function DetailEntryReport() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { toast } = useToast();
+  const [exporting, setExporting] = useState(false);
+
+  const fromBS = searchParams.get("fromBS") ?? todayBS();
+  const toBS = searchParams.get("toBS") ?? todayBS();
+  const vehicleNo = searchParams.get("vehicleNo") ?? "";
+  const goods = searchParams.get("goods") ?? "";
+  const billNo = searchParams.get("billNo") ?? "";
+  const page = clampPage(Number(searchParams.get("page") ?? "1"));
+  const pageSize = 25;
+
+  const setUrlParams = useCallback(
+    (updates: Record<string, string | number | undefined>) => {
+      const next = new URLSearchParams(searchParams.toString());
+      for (const [key, value] of Object.entries(updates)) {
+        if (value === undefined || value === "") next.delete(key);
+        else next.set(key, String(value));
+      }
+      const qs = next.toString();
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    },
+    [pathname, router, searchParams]
+  );
+
+  const query = useDetailEntryReport({
+    fromBS,
+    toBS,
+    vehicleNo: vehicleNo || undefined,
+    goods: goods || undefined,
+    billNo: billNo || undefined,
+    page,
+    pageSize,
+  });
+
+  const filters = {
+    fromBS,
+    toBS,
+    vehicleNo: vehicleNo || undefined,
+    goods: goods || undefined,
+    billNo: billNo || undefined,
+  };
+
+  const onExport = async () => {
+    setExporting(true);
+    try {
+      const res = await fetch(reportsApi.detailEntryExportUrl(filters), {
+        credentials: "include",
+      });
+      if (!res.ok) {
+        toast("error", "Export failed. Try again.");
+        return;
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `detail-entry-${fromBS}-${toBS}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toast("success", "Report exported.");
+    } catch {
+      toast("error", "Network error while exporting.");
+    } finally {
+      setExporting(false);
+    }
+  };
+
+  const columns: ColumnDef<DetailEntryRow, unknown>[] = [
+    { accessorKey: "s-n", header: "S.N", meta: { align: "right" } },
+    { accessorKey: "dateTime", header: "Date & time" },
+    { accessorKey: "receiptNo", header: "Receipt no.", cell: ({ row }) => <span className="font-mono">{row.original.receiptNo}</span> },
+    { accessorKey: "vehicleNo", header: "Vehicle no." },
+    { accessorKey: "vehicleType", header: "Vehicle type" },
+    { accessorKey: "checkpointName", header: "Checkpoint" },
+    { accessorKey: "route", header: "From → to" },
+    {
+      accessorKey: "grossWeightKg",
+      header: "Gross weight",
+      meta: { align: "right" },
+      cell: ({ row }) => <span className="tabular-nums">{formatWeight(row.original.grossWeightKg)}</span>,
+    },
+    { accessorKey: "material", header: "Material" },
+    { accessorKey: "remarks", header: "Remarks" },
+  ];
+
+  const meta = query.data?.meta ?? { page: 1, pageSize, total: 0, totalPages: 1 };
+
+  return (
+    <div>
+      <PageHeader
+        title="Detail Entry Report"
+        description="Line items of every journey event in the selected range."
+        actions={
+          <>
+            <Button variant="outline" onClick={() => window.print()}>
+              <Printer className="size-4" aria-hidden="true" />
+              Print
+            </Button>
+            <Button onClick={onExport} disabled={exporting || !query.data?.data.length}>
+              <Download className="size-4" aria-hidden="true" />
+              {exporting ? "Exporting…" : "Export Excel"}
+            </Button>
+          </>
+        }
+      />
+
+      <div className="flex flex-col gap-4">
+        <FilterBar
+          onClear={() =>
+            setUrlParams({
+              fromBS: todayBS(),
+              toBS: todayBS(),
+              vehicleNo: undefined,
+              goods: undefined,
+              billNo: undefined,
+              page: 1,
+            })
+          }
+        >
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="det-from" className="text-xs">From</Label>
+            <Input
+              id="det-from"
+              value={fromBS}
+              onChange={(e) => setUrlParams({ fromBS: e.target.value || undefined, page: 1 })}
+              placeholder="2083-07-20"
+              className="h-9 w-32"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="det-to" className="text-xs">To</Label>
+            <Input
+              id="det-to"
+              value={toBS}
+              onChange={(e) => setUrlParams({ toBS: e.target.value || undefined, page: 1 })}
+              placeholder="2083-07-20"
+              className="h-9 w-32"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="det-vehicle" className="text-xs">Vehicle no.</Label>
+            <Input
+              id="det-vehicle"
+              value={vehicleNo}
+              onChange={(e) => setUrlParams({ vehicleNo: e.target.value || undefined, page: 1 })}
+              placeholder="BA 1 KHA 1234"
+              className="h-9 w-40"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="det-goods" className="text-xs">Goods</Label>
+            <Input
+              id="det-goods"
+              value={goods}
+              onChange={(e) => setUrlParams({ goods: e.target.value || undefined, page: 1 })}
+              placeholder="Gravel"
+              className="h-9 w-32"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="det-bill" className="text-xs">Bill no.</Label>
+            <Input
+              id="det-bill"
+              value={billNo}
+              onChange={(e) => setUrlParams({ billNo: e.target.value || undefined, page: 1 })}
+              placeholder="INX_2083_0001"
+              className="h-9 w-36 font-mono text-xs"
+            />
+          </div>
+        </FilterBar>
+
+        <DataTable<DetailEntryRow>
+          columns={columns}
+          data={query.data?.data ?? []}
+          isLoading={query.isPending}
+          isError={query.isError}
+          error={query.error}
+          onRetry={() => query.refetch()}
+          pagination={meta}
+          onPageChange={(p) => setUrlParams({ page: p })}
+          onPageSizeChange={() => {}}
+          emptyState={{
+            title: "No entries in this range",
+            description: "Widen the date range or clear the filters.",
+          }}
+          getRowId={(r) => r.id}
+        />
+      </div>
+    </div>
+  );
+}

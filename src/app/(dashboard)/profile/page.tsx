@@ -1,11 +1,12 @@
+import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth";
+import { ProfileCard } from "@/features/profile/components/profile-card";
 
-import { PlaceholderPage } from "@/components/layout/placeholder-page";
+export const metadata: Metadata = { title: "My Profile — TQMS Pulse" };
 
-export default function ProfilePage() {
-  return (
-    <PlaceholderPage
-      title="My Profile"
-      description="Your account details."
-    />
-  );
+export default async function ProfilePage() {
+  const session = await getSession();
+  if (!session) redirect("/login");
+  return <ProfileCard user={session} />;
 }

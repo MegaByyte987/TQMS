@@ -6,7 +6,6 @@ import {
   useReactTable,
   type ColumnDef,
   type SortingState,
-  type Updater,
 } from "@tanstack/react-table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/shared/empty-state";
@@ -35,7 +34,7 @@ interface DataTableProps<TData> {
   error?: unknown;
   onRetry?: () => void;
   sorting?: SortingState;
-  onSortingChange?: (updater: Updater<SortingState>) => void;
+  onSortingChange?: (sorting: SortingState) => void;
   pagination: DataTablePagination;
   onPageChange: (page: number) => void;
   onPageSizeChange: (pageSize: number) => void;
@@ -64,7 +63,10 @@ export function DataTable<TData>({
     data,
     columns,
     state: { sorting },
-    onSortingChange,
+    onSortingChange: (updater) => {
+      const next = typeof updater === "function" ? updater(sorting) : updater;
+      onSortingChange?.(next);
+    },
     getCoreRowModel: getCoreRowModel(),
     manualSorting: true,
     manualPagination: true,

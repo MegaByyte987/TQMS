@@ -1,11 +1,13 @@
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import { DetailEntryReport } from "@/features/reports/components/detail-entry-report";
 
-import { PlaceholderPage } from "@/components/layout/placeholder-page";
+export const metadata: Metadata = { title: "Detail Entry Report — TQMS Pulse" };
 
 export default function DetailEntryReportPage() {
   return (
-    <PlaceholderPage
-      title="Detail Entry Report"
-      description="Line-item journey events with print and Excel export."
-    />
+    <Suspense fallback={<div className="text-sm text-slate-500">Loading…</div>}>
+      <DetailEntryReport />
+    </Suspense>
   );
 }

@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useLogout } from "@/features/auth/hooks/use-logout";
+import type { AuthUser } from "@/lib/auth";
 
 export function ProfileMenu({ user }: { user: AuthUser }) {
   const logout = useLogout();

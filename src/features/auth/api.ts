@@ -1,5 +1,5 @@
 import { api } from "@/lib/fetcher";
-import type { LoginRequest } from "./types";
+import type { AuthUser, LoginRequest } from "./types";
 
 export const authApi = {
   login: (body: LoginRequest) => api.post<AuthUser>("/auth/login", body),

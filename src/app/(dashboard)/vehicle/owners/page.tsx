@@ -1,11 +1,13 @@
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import { VehicleOwnersTable } from "@/features/vehicle-owners/components/vehicle-owners-table";
 
-import { PlaceholderPage } from "@/components/layout/placeholder-page";
+export const metadata: Metadata = { title: "Vehicle Owner — TQMS Pulse" };
 
 export default function VehicleOwnersPage() {
   return (
-    <PlaceholderPage
-      title="Vehicle Owner"
-      description="Registered owners and companies."
-    />
+    <Suspense fallback={<div className="text-sm text-slate-500">Loading…</div>}>
+      <VehicleOwnersTable />
+    </Suspense>
   );
 }

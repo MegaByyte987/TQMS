@@ -11,6 +11,7 @@ export interface CheckUser {
   email?: string;
   status: boolean;            
   createdAtBS: BSDate;
+  sthaniyaSanghId?: string;
 }
 
 export interface Narration {
@@ -75,7 +76,7 @@ export interface Receipt {
   receiptNo: string;
   type: "loadboard-sthaniya";
   dateBS: BSDate;
-  time: string;                // "10:12 PM"
+  time: string;               
   weighStationId: string;
   vehicleNo: string;
   goods: string;
@@ -83,6 +84,7 @@ export interface Receipt {
   weightKg: number;
   feeLines: FeeLine[];
   totalAmount: number;
+  checkpointUserId?: string;
 }
 
 export type QueueStatus =

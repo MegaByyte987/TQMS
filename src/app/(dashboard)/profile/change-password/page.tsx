@@ -1,11 +1,17 @@
+import type { Metadata } from "next";
+import { PageHeader } from "@/components/layout/page-header";
+import { ChangePasswordForm } from "@/features/profile/components/change-password-form";
 
-import { PlaceholderPage } from "@/components/layout/placeholder-page";
+export const metadata: Metadata = { title: "Change password — TQMS Pulse" };
 
 export default function ChangePasswordPage() {
   return (
-    <PlaceholderPage
-      title="Change Password"
-      description="Update the password for your checkpoint account."
-    />
+    <div>
+      <PageHeader
+        title="Change password"
+        description="Update the password for your account."
+      />
+      <ChangePasswordForm />
+    </div>
   );
 }

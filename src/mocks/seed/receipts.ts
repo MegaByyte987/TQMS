@@ -20,5 +20,6 @@ export const receipts: Receipt[] = Array.from({ length: 60 }, (_, i) => {
     weightKg: weight,
     feeLines,
     totalAmount: feeLines.reduce((sum, line) => sum + line.amount, 0),
+    checkpointUserId: `cu-${String((i % 42) + 1).padStart(3, "0")}`
   };
 });

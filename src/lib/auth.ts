@@ -1,5 +1,12 @@
 import { cookies } from "next/headers";
 
+export interface AuthUser {
+  id: string;
+  name: string;
+  role: string;
+  checkpoint: string;
+}
+
 const SESSION_COOKIE = "tqms-session";
 
 export async function getSession(): Promise<AuthUser | null> {

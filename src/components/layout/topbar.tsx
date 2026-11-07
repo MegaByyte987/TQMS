@@ -3,6 +3,7 @@
 import { Menu } from "lucide-react";
 import { Breadcrumbs } from "./breadcrumbs";
 import { ProfileMenu } from "./profile-menu";
+import type { AuthUser } from "@/lib/auth";
 
 interface TopbarProps {
   user: AuthUser;

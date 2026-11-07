@@ -1,11 +1,13 @@
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import { CheckpointEntryReport } from "@/features/reports/components/checkpoint-entry-report";
 
-import { PlaceholderPage } from "@/components/layout/placeholder-page";
+export const metadata: Metadata = { title: "Checkpoint Entry — TQMS Pulse" };
 
-export default function CheckpointEntryReportPage() {
+export default function CheckpointEntryPage() {
   return (
-    <PlaceholderPage
-      title="Checkpoint Entry"
-      description="Daily activity summary per checkpoint user."
-    />
+    <Suspense fallback={<div className="text-sm text-slate-500">Loading…</div>}>
+      <CheckpointEntryReport />
+    </Suspense>
   );
 }

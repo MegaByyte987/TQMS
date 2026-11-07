@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { Sidebar } from "./sidebar";
 import { Topbar } from "./topbar";
+import type { AuthUser } from "@/lib/auth";
 
 const STORAGE_KEY = "tqms-sidebar-collapsed";
 

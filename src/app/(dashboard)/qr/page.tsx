@@ -1,11 +1,19 @@
+import type { Metadata } from "next";
+import { PageHeader } from "@/components/layout/page-header";
+import { QrCard } from "@/features/qr/components/qr-card";
 
-import { PlaceholderPage } from "@/components/layout/placeholder-page";
+export const metadata: Metadata = { title: "Generate QR — TQMS Pulse" };
 
 export default function QrPage() {
   return (
-    <PlaceholderPage
-      title="Generate QR"
-      description="Produce a downloadable checkpoint token."
-    />
+    <div>
+      <PageHeader
+        title="Generate QR"
+        description="Produce a checkpoint token as a downloadable QR code."
+      />
+      <div className="flex justify-center">
+        <QrCard />
+      </div>
+    </div>
   );
 }
