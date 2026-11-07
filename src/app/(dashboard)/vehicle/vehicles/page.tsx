@@ -1,11 +1,13 @@
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import { VehiclesTable } from "@/features/vehicles/components/vehicles-table";
 
-import { PlaceholderPage } from "@/components/layout/placeholder-page";
+export const metadata: Metadata = { title: "Vehicles — TQMS Pulse" };
 
-export default function VehiclesPage() {
+export default function VehiclesRoutePage() {
   return (
-    <PlaceholderPage
-      title="Vehicles"
-      description="Registered fleet vehicles."
-    />
+    <Suspense fallback={<div className="text-sm text-slate-500">Loading…</div>}>
+      <VehiclesTable />
+    </Suspense>
   );
 }

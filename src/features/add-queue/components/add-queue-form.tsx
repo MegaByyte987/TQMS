@@ -52,23 +52,28 @@ export function AddQueueForm({ onIssued }: AddQueueFormProps) {
 
   const createMutation = useCreateQueue(onIssued);
 
-  // Lookups
   const vehiclesQuery = useQuery({
-    queryKey: ["vehicles", "lookup"],
-    queryFn: async () => {
-      const res = await api.get<{ id: string; plateNo: string }[]>("/vehicles");
-      return res.data.map((v) => ({ value: v.id, label: v.plateNo }));
-    },
-    staleTime: 60_000,
+  queryKey: ["vehicles", "lookup"],
+  queryFn: async () => {
+    const res = await api.get<{ id: string; plateNo: string }[]>(
+      "/vehicles?pageSize=100"
+    );
+    return res.data.map((v) => ({ value: v.id, label: v.plateNo }));
+  },
+  staleTime: 60_000,
   });
+
   const checkpointsQuery = useLookup("checkpoints");
+  
   const narrationsQuery = useQuery({
-    queryKey: ["narrations", "lookup"],
-    queryFn: async () => {
-      const res = await api.get<{ id: string; text: string }[]>("/narrations");
-      return res.data.map((n) => ({ value: n.id, label: n.text }));
-    },
-    staleTime: 60_000,
+  queryKey: ["narrations", "lookup"],
+  queryFn: async () => {
+    const res = await api.get<{ id: string; text: string }[]>(
+      "/narrations?pageSize=100"
+    );
+    return res.data.map((n) => ({ value: n.id, label: n.text }));
+  },
+  staleTime: 60_000,
   });
 
   const values = watch();
