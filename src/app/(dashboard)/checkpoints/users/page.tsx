@@ -1,11 +1,17 @@
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import { CheckUsersTable } from "@/features/check-users/components/check-users-table";
 
-import { PlaceholderPage } from "@/components/layout/placeholder-page";
+export const metadata: Metadata = { title: "Check User — TQMS Pulse" };
 
-export default function UsersPage() {
+export default function CheckUsersPage() {
   return (
-    <PlaceholderPage
-      title="Users"
-      description="Reusable users strings for queue entries."
-    />
+    <Suspense
+      fallback={
+        <div className="text-sm text-slate-500">Loading check users…</div>
+      }
+    >
+      <CheckUsersTable />
+    </Suspense>
   );
 }

@@ -1,9 +1,6 @@
 type Primitive = string | number | boolean;
 
-/**
- * Case-insensitive contains search across the given fields.
- */
-export function searchRows<T extends Record<string, unknown>>(
+export function searchRows<T extends object>(
   rows: T[],
   query: string | null | undefined,
   fields: (keyof T)[]
@@ -19,11 +16,7 @@ export function searchRows<T extends Record<string, unknown>>(
   );
 }
 
-/**
- * Filters rows to those whose field strictly equals one of the supplied values.
- * Empty arrays mean "no filter".
- */
-export function filterIn<T extends Record<string, unknown>>(
+export function filterIn<T extends object>(
   rows: T[],
   field: keyof T,
   values: Primitive[] | null | undefined
@@ -33,11 +26,7 @@ export function filterIn<T extends Record<string, unknown>>(
   return rows.filter((row) => allowed.has(String(row[field])));
 }
 
-/**
- * Filters rows to those whose BS date field falls within [from, to] inclusive.
- * Strings compare correctly for the canonical YYYY-MM-DD format.
- */
-export function filterBSRange<T extends Record<string, unknown>>(
+export function filterBSRange<T extends object>(
   rows: T[],
   field: keyof T,
   from: string | null | undefined,

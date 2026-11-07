@@ -35,7 +35,7 @@ interface DataTableProps<TData> {
   error?: unknown;
   onRetry?: () => void;
   sorting?: SortingState;
-  onSortingChange?: (sorting: SortingState) => void;
+  onSortingChange?: (updater: Updater<SortingState>) => void;
   pagination: DataTablePagination;
   onPageChange: (page: number) => void;
   onPageSizeChange: (pageSize: number) => void;
@@ -64,7 +64,7 @@ export function DataTable<TData>({
     data,
     columns,
     state: { sorting },
-    onSortingChange: onSortingChange as (u: Updater<SortingState>) => void,
+    onSortingChange,
     getCoreRowModel: getCoreRowModel(),
     manualSorting: true,
     manualPagination: true,
