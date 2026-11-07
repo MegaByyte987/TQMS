@@ -1,3 +1,13 @@
+import "@tanstack/react-table";
+
+declare module "@tanstack/react-table" {
+  // Extend ColumnMeta so columns can declare an `align` hint.
+  // The DataTable reads this to right-align numeric columns
+  // and centre status columns.
+  interface ColumnMeta<TData extends RowData, TValue> {
+    align?: "left" | "right" | "center";
+  }
+}
 
 declare global {
   interface PaginationMeta {

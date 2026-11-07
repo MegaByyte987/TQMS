@@ -6,7 +6,27 @@ export type BSDate = `${number}-${string}-${string}`;
 const BS_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/;
 
 export function isBSDate(value: string): value is BSDate {
-  return BS_PATTERN.test(value);
+  const match = BS_PATTERN.exec(value);
+  if (!match) return false;
+
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+
+  if (year < 2000 || year > 2199) return false;
+  if (month < 1 || month > 12) return false;
+  if (day < 1 || day > 32) return false;
+
+  try {
+    const nd = new NepaliDate(year, month - 1, day);
+    return (
+      nd.getYear() === year &&
+      nd.getMonth() + 1 === month &&
+      nd.getDate() === day
+    );
+  } catch {
+    return false;
+  }
 }
 
 /** Returns today's date as a BS string, e.g. "2083-07-20". */
