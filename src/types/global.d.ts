@@ -1,3 +1,4 @@
+
 declare global {
   interface PaginationMeta {
     page: number;
@@ -19,6 +20,13 @@ declare global {
   }
 
   type Nullable<T> = T | null;
+
+  interface AuthUser {
+    id: string;
+    name: string;
+    role: string;
+    checkpoint: string;
+  }
 }
 
 export {};

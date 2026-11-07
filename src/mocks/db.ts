@@ -75,7 +75,6 @@ function persist(): void {
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
   } catch {
-    // localStorage can throw when full or in private mode — ignore.
   }
 }
 
