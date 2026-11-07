@@ -1,11 +1,8 @@
+import type { Metadata } from "next";
+import { AddQueuePage } from "@/features/add-queue/components/add-queue-page";
 
-import { PlaceholderPage } from "@/components/layout/placeholder-page";
+export const metadata: Metadata = { title: "Add new queue — TQMS Pulse" };
 
-export default function AddQueuePage() {
-  return (
-    <PlaceholderPage
-      title="Add New Queue"
-      description="Issue a weighbridge receipt and enqueue a vehicle."
-    />
-  );
+export default function AddQueueRoutePage() {
+  return <AddQueuePage />;
 }

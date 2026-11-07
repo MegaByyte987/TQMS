@@ -14,6 +14,12 @@ interface TextFieldProps<T extends FieldValues> {
   type?: React.ComponentProps<"input">["type"];
   required?: boolean;
   disabled?: boolean;
+  /**
+   * When true, the browser's string value is converted to a number before
+   * being handed to React Hook Form. Empty input becomes undefined so the
+   * schema's `error` message fires instead of a NaN validation error.
+   */
+  valueAsNumber?: boolean;
   className?: string;
 }
 
@@ -26,6 +32,7 @@ export function TextField<T extends FieldValues>({
   type = "text",
   required,
   disabled,
+  valueAsNumber = false,
   className,
 }: TextFieldProps<T>) {
   return (
@@ -58,6 +65,15 @@ export function TextField<T extends FieldValues>({
                   .join(" ") || undefined
               }
               {...field}
+              value={field.value ?? ""}
+              onChange={
+                valueAsNumber
+                  ? (event) => {
+                      const raw = event.target.value;
+                      field.onChange(raw === "" ? undefined : Number(raw));
+                    }
+                  : field.onChange
+              }
             />
             {description && !fieldState.error && (
               <p id={descriptionId} className="text-xs text-slate-500">

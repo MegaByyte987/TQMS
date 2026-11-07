@@ -18,3 +18,30 @@
     outline-offset: 2px;
   }
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-receipt,
+  .print-receipt * {
+    visibility: visible;
+  }
+  .print-receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 80mm;
+    max-width: none;
+    border: none;
+    padding: 4mm;
+    font-size: 10pt;
+  }
+  .no-print {
+    display: none !important;
+  }
+  @page {
+    size: 80mm auto;
+    margin: 0;
+  }
+}
