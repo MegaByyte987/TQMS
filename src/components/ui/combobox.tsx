@@ -73,7 +73,7 @@ function Combobox({
         <Popover.Content
           align="start"
           sideOffset={4}
-          className="z-50 w-[var(--radix-popover-trigger-width)] rounded-md border border-slate-200 bg-white p-0 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+          className="z-50 w-(--radix-popover-trigger-width) rounded-md border border-slate-200 bg-white p-0 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
         >
           <Command
             id={listId}
