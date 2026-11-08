@@ -7,10 +7,6 @@ interface FilterBarProps {
   className?: string;
 }
 
-/**
- * A horizontal wrapper for filter controls with an optional "Clear" action.
- * Stacks vertically on narrow screens; row on `sm:` and above.
- */
 export function FilterBar({
   children,
   onClear,
@@ -20,7 +16,7 @@ export function FilterBar({
   return (
     <div
       className={cn(
-        "flex flex-col gap-2 rounded-lg border border-slate-200 bg-white p-3 sm:flex-row sm:flex-wrap sm:items-center",
+        "flex flex-col gap-2 rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)] p-3 sm:flex-row sm:flex-wrap sm:items-center",
         className
       )}
     >
@@ -29,7 +25,7 @@ export function FilterBar({
         <button
           type="button"
           onClick={onClear}
-          className="self-start rounded-md px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 sm:self-auto"
+          className="self-start rounded-[8px] px-2 py-1 text-xs font-medium text-[var(--color-mut)] hover:bg-[var(--color-ac)] hover:text-[var(--color-fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6d8bff] sm:self-auto"
         >
           {clearLabel}
         </button>

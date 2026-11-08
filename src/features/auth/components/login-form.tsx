@@ -14,12 +14,10 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ nextPath }: LoginFormProps) {
-  // Reject absolute and protocol-relative URLs to prevent open redirects.
   const redirectTo =
     nextPath && nextPath.startsWith("/") && !nextPath.startsWith("//")
       ? nextPath
       : "/queue";
-
   const login = useLogin(redirectTo);
   const {
     register,
@@ -34,8 +32,8 @@ export function LoginForm({ nextPath }: LoginFormProps) {
     login.error instanceof ApiError && login.error.status === 401
       ? "Invalid username or password."
       : login.error instanceof ApiError
-        ? login.error.message
-        : null;
+      ? login.error.message
+      : null;
 
   return (
     <form
@@ -54,7 +52,7 @@ export function LoginForm({ nextPath }: LoginFormProps) {
           {...register("username")}
         />
         {errors.username && (
-          <p id="username-error" className="text-xs text-rose-600">
+          <p id="username-error" className="text-xs text-[var(--color-bad)]">
             {errors.username.message}
           </p>
         )}
@@ -72,7 +70,7 @@ export function LoginForm({ nextPath }: LoginFormProps) {
           {...register("password")}
         />
         {errors.password && (
-          <p id="password-error" className="text-xs text-rose-600">
+          <p id="password-error" className="text-xs text-[var(--color-bad)]">
             {errors.password.message}
           </p>
         )}
@@ -81,7 +79,7 @@ export function LoginForm({ nextPath }: LoginFormProps) {
       {serverError && (
         <div
           role="alert"
-          className="rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700"
+          className="rounded-[8px] border border-[var(--color-badw)] bg-[var(--color-badw)] px-3 py-2 text-sm text-[var(--color-bad)]"
         >
           {serverError}
         </div>

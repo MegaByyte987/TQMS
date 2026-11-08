@@ -55,7 +55,7 @@ export function ChangePasswordForm() {
         required
       />
 
-      <div className="flex flex-col-reverse gap-2 border-t border-slate-200 pt-4 sm:flex-row sm:justify-end">
+      <div className="flex flex-col-reverse gap-2 border-t border-[var(--color-bd)] pt-4 sm:flex-row sm:justify-end">
         <Button asChild variant="outline" type="button">
           <Link href="/profile">Cancel</Link>
         </Button>

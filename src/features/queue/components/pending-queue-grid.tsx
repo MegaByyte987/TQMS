@@ -47,15 +47,12 @@ function GridBase({
   if (isError) {
     return <ErrorState error={error} onRetry={onRetry} />;
   }
-
   if (isLoading) {
     return <CardGridSkeleton />;
   }
-
   if (cards.length === 0) {
     return <EmptyState title={emptyTitle} description={emptyDescription} />;
   }
-
   return (
     <div className="flex flex-col gap-3">
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
@@ -69,7 +66,7 @@ function GridBase({
           />
         ))}
       </div>
-      <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+      <div className="overflow-hidden rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)]">
         <Pagination
           page={page}
           pageSize={pageSize}

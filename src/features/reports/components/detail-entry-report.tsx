@@ -97,7 +97,7 @@ export function DetailEntryReport() {
   const columns: ColumnDef<DetailEntryRow, unknown>[] = [
     { accessorKey: "s-n", header: "S.N", meta: { align: "right" } },
     { accessorKey: "dateTime", header: "Date & time" },
-    { accessorKey: "receiptNo", header: "Receipt no.", cell: ({ row }) => <span className="font-mono">{row.original.receiptNo}</span> },
+    { accessorKey: "receiptNo", header: "Receipt no.", cell: ({ row }) => <span className="font-mono text-[var(--color-fg)]">{row.original.receiptNo}</span> },
     { accessorKey: "vehicleNo", header: "Vehicle no." },
     { accessorKey: "vehicleType", header: "Vehicle type" },
     { accessorKey: "checkpointName", header: "Checkpoint" },
@@ -106,7 +106,7 @@ export function DetailEntryReport() {
       accessorKey: "grossWeightKg",
       header: "Gross weight",
       meta: { align: "right" },
-      cell: ({ row }) => <span className="tabular-nums">{formatWeight(row.original.grossWeightKg)}</span>,
+      cell: ({ row }) => <span className="tabular-nums text-[var(--color-fg)]">{formatWeight(row.original.grossWeightKg)}</span>,
     },
     { accessorKey: "material", header: "Material" },
     { accessorKey: "remarks", header: "Remarks" },
@@ -147,73 +147,75 @@ export function DetailEntryReport() {
           }
         >
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="det-from" className="text-xs">From</Label>
+            <Label htmlFor="det-from" className="text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--color-mut)]">From</Label>
             <Input
               id="det-from"
               value={fromBS}
               onChange={(e) => setUrlParams({ fromBS: e.target.value || undefined, page: 1 })}
               placeholder="2083-07-20"
-              className="h-9 w-32"
+              className="h-[38px] w-32 rounded-[8px] border-[var(--color-bd)] bg-[var(--color-card)] text-[14px] text-[var(--color-fg)]"
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="det-to" className="text-xs">To</Label>
+            <Label htmlFor="det-to" className="text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--color-mut)]">To</Label>
             <Input
               id="det-to"
               value={toBS}
               onChange={(e) => setUrlParams({ toBS: e.target.value || undefined, page: 1 })}
               placeholder="2083-07-20"
-              className="h-9 w-32"
+              className="h-[38px] w-32 rounded-[8px] border-[var(--color-bd)] bg-[var(--color-card)] text-[14px] text-[var(--color-fg)]"
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="det-vehicle" className="text-xs">Vehicle no.</Label>
+            <Label htmlFor="det-vehicle" className="text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--color-mut)]">Vehicle no.</Label>
             <Input
               id="det-vehicle"
               value={vehicleNo}
               onChange={(e) => setUrlParams({ vehicleNo: e.target.value || undefined, page: 1 })}
               placeholder="BA 1 KHA 1234"
-              className="h-9 w-40"
+              className="h-[38px] w-40 rounded-[8px] border-[var(--color-bd)] bg-[var(--color-card)] text-[14px] text-[var(--color-fg)]"
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="det-goods" className="text-xs">Goods</Label>
+            <Label htmlFor="det-goods" className="text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--color-mut)]">Goods</Label>
             <Input
               id="det-goods"
               value={goods}
               onChange={(e) => setUrlParams({ goods: e.target.value || undefined, page: 1 })}
               placeholder="Gravel"
-              className="h-9 w-32"
+              className="h-[38px] w-32 rounded-[8px] border-[var(--color-bd)] bg-[var(--color-card)] text-[14px] text-[var(--color-fg)]"
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="det-bill" className="text-xs">Bill no.</Label>
+            <Label htmlFor="det-bill" className="text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--color-mut)]">Bill no.</Label>
             <Input
               id="det-bill"
               value={billNo}
               onChange={(e) => setUrlParams({ billNo: e.target.value || undefined, page: 1 })}
               placeholder="INX_2083_0001"
-              className="h-9 w-36 font-mono text-xs"
+              className="h-[38px] w-36 rounded-[8px] border-[var(--color-bd)] bg-[var(--color-card)] font-mono text-[12px] text-[var(--color-fg)]"
             />
           </div>
         </FilterBar>
 
-        <DataTable<DetailEntryRow>
-          columns={columns}
-          data={query.data?.data ?? []}
-          isLoading={query.isPending}
-          isError={query.isError}
-          error={query.error}
-          onRetry={() => query.refetch()}
-          pagination={meta}
-          onPageChange={(p) => setUrlParams({ page: p })}
-          onPageSizeChange={() => {}}
-          emptyState={{
-            title: "No entries in this range",
-            description: "Widen the date range or clear the filters.",
-          }}
-          getRowId={(r) => r.id}
-        />
+        <div className="overflow-hidden rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)]">
+          <DataTable<DetailEntryRow>
+            columns={columns}
+            data={query.data?.data ?? []}
+            isLoading={query.isPending}
+            isError={query.isError}
+            error={query.error}
+            onRetry={() => query.refetch()}
+            pagination={meta}
+            onPageChange={(p) => setUrlParams({ page: p })}
+            onPageSizeChange={() => {}}
+            emptyState={{
+              title: "No entries in this range",
+              description: "Widen the date range or clear the filters.",
+            }}
+            getRowId={(r) => r.id}
+          />
+        </div>
       </div>
     </div>
   );

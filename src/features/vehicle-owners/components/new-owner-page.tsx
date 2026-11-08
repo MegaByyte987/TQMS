@@ -13,7 +13,7 @@ export function NewVehicleOwnerPage() {
         title="Add vehicle owner"
         description="Create a new owner or company record."
       />
-      <div className="rounded-lg border border-slate-200 bg-white p-6">
+      <div className="rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)] p-6">
         <VehicleOwnerForm
           mode="create"
           onSubmit={(values) => create.mutate(values)}

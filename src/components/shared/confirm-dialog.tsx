@@ -18,7 +18,6 @@ interface ConfirmDialogProps {
   description: React.ReactNode;
   confirmLabel?: string;
   cancelLabel?: string;
-  /** "destructive" styles the confirm button in red and focuses Cancel by default. */
   variant?: "default" | "destructive";
   isPending?: boolean;
   onConfirm: () => void;

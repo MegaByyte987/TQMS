@@ -1,47 +1,69 @@
-/* src/app/globals.css */
 @import "tailwindcss";
 
 @theme {
-  --radius: 0.5rem;
+  --color-bg: #fafafa;
+  --color-card: #ffffff;
+  --color-fg: #09090b;
+  --color-mut: #71717a;
+  --color-bd: #e4e4e7;
+  --color-ac: #f4f4f5;
+  --color-pri: #2563eb;
+  --color-priw: #eff4ff;
+  --color-ok: #15803d;
+  --color-okw: #dcfce7;
+  --color-warn: #b45309;
+  --color-warnw: #fef3c7;
+  --color-bad: #b91c1c;
+  --color-badw: #fee2e2;
+  --color-navy: #070a22;
+  
+  --radius-r: 12px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 @layer base {
   * {
-    border-color: theme("colors.slate.200");
+    @apply border-[var(--color-bd)] box-border;
   }
-  body {
-    background-color: theme("colors.slate.50");
-    color: theme("colors.slate.900");
+  
+  html {
+    @apply scroll-smooth antialiased;
+    -webkit-text-size-adjust: 100%;
   }
-  :focus-visible {
-    outline: 2px solid theme("colors.blue.500");
-    outline-offset: 2px;
-  }
-}
 
-@media print {
-  body * {
-    visibility: hidden;
+  body {
+    @apply bg-[var(--color-bg)] text-[var(--color-fg)] font-sans text-[16px] leading-[1.5] overflow-x-hidden;
+    -webkit-font-smoothing: antialiased;
   }
-  .print-receipt,
-  .print-receipt * {
-    visibility: visible;
+
+  /* Typography: Tight negative tracking on headings, strict line heights */
+  h1, h2, h3 {
+    @apply font-semibold leading-[1.04] tracking-tight;
   }
-  .print-receipt {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 80mm;
-    max-width: none;
-    border: none;
-    padding: 4mm;
-    font-size: 10pt;
+  h1 {
+    @apply text-[clamp(2.5rem,7vw,5.8rem)] tracking-[-0.065em];
   }
-  .no-print {
-    display: none !important;
+  h2 {
+    @apply text-[clamp(2rem,4.8vw,3.5rem)] tracking-[-0.055em];
   }
-  @page {
-    size: 80mm auto;
-    margin: 0;
+  h3 {
+    @apply text-[1.25rem] tracking-[-0.03em] leading-[1.2];
+  }
+
+  /* Micro-labels: Uppercase mono, positive tracking */
+  .micro-label {
+    @apply font-mono text-[11px] uppercase tracking-[0.1em] text-[var(--color-mut)];
+  }
+
+  /* Focus rings matching the reference */
+  :focus-visible {
+    @apply outline-2 outline-[#6d8bff] outline-offset-[3px] rounded-[8px];
+  }
+
+  /* Remove default shadows, enforce hairline borders */
+  .card, .input, .badge, .button {
+    @apply shadow-none;
   }
 }

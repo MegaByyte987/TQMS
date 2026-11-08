@@ -57,8 +57,6 @@ export function QueueFilterSheet({
   return (
     <Drawer
       onOpenChange={(open) => {
-        // Reset the draft to the applied value every time the drawer opens,
-        // so cancelling a previous edit does not leak into the next open.
         if (open) setDraft(value);
       }}
     >
@@ -67,7 +65,7 @@ export function QueueFilterSheet({
           <Filter className="size-3.5" aria-hidden="true" />
           Filter
           {activeCount > 0 && (
-            <span className="ml-0.5 rounded-full bg-slate-900 px-1.5 py-0.5 text-[10px] font-semibold text-white">
+            <span className="ml-0.5 flex h-4 min-w-4 items-center justify-center rounded-[980px] bg-[var(--color-fg)] px-1 text-[10px] font-semibold text-white">
               {activeCount}
             </span>
           )}
@@ -80,8 +78,7 @@ export function QueueFilterSheet({
             Narrow down the existing queue by vehicle or card details.
           </DrawerDescription>
         </DrawerHeader>
-
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 px-6">
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="filter-vehicle-name">Vehicle name</Label>
             <Input
@@ -96,7 +93,6 @@ export function QueueFilterSheet({
               placeholder="e.g. BA 1 KHA 1234"
             />
           </div>
-
           <div className="flex flex-col gap-1.5">
             <Label>Card type</Label>
             <Select
@@ -121,7 +117,6 @@ export function QueueFilterSheet({
               </SelectContent>
             </Select>
           </div>
-
           <div className="flex flex-col gap-1.5">
             <Label>Vehicle type</Label>
             <Select
@@ -147,7 +142,6 @@ export function QueueFilterSheet({
             </Select>
           </div>
         </div>
-
         <DrawerFooter>
           <DrawerClose asChild>
             <Button

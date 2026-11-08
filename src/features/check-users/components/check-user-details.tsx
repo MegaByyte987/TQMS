@@ -28,7 +28,6 @@ export function CheckUserDetails({ user, onClose }: CheckUserDetailsProps) {
             Read-only view. Use Edit to make changes.
           </DrawerDescription>
         </DrawerHeader>
-
         {user && (
           <DetailList
             rows={[
@@ -38,7 +37,7 @@ export function CheckUserDetails({ user, onClose }: CheckUserDetailsProps) {
                 value: (
                   <StatusBadge
                     label={user.status ? "Active" : "Inactive"}
-                    variant={user.status ? "success" : "muted"}
+                    variant={user.status ? "ok" : "muted"}
                   />
                 ),
               },

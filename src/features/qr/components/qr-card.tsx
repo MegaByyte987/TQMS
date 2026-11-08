@@ -13,7 +13,7 @@ export function QrCard() {
   const { toast } = useToast();
 
   if (query.isPending) {
-    return <Skeleton className="size-80 rounded-lg" />;
+    return <Skeleton className="h-80 w-80 rounded-[12px]" />;
   }
 
   if (query.isError) {
@@ -42,19 +42,19 @@ export function QrCard() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 rounded-lg border border-slate-200 bg-white p-6">
+    <div className="flex flex-col items-center gap-4 rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)] p-6">
       <Image
         src={dataUrl}
         alt={`QR code encoding token ${payload.slice(0, 8)}…`}
         width={288}
         height={288}
         unoptimized
-        className="rounded"
+        className="rounded-[8px]"
       />
-      <p className="text-xs text-slate-500">
-        Token: <span className="font-mono">{payload}</span>
+      <p className="text-[12px] text-[var(--color-mut)]">
+        Token: <span className="font-mono text-[var(--color-fg)]">{payload}</span>
       </p>
-      <p className="max-w-md text-center text-xs text-slate-500">
+      <p className="max-w-md text-center text-[12px] text-[var(--color-mut)]">
         Scan this code at a checkpoint to identify the current session. The
         token expires when the page is closed.
       </p>

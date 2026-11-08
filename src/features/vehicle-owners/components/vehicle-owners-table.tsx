@@ -57,7 +57,7 @@ export function VehicleOwnersTable() {
       header: ({ column }) => <ColumnHeader column={column} title="S.N" />,
       meta: { align: "right" },
       cell: ({ row }) => (
-        <span className="tabular-nums text-slate-500">
+        <span className="tabular-nums text-[var(--color-mut)]">
           {row.original["s-n"]}
         </span>
       ),
@@ -76,7 +76,7 @@ export function VehicleOwnersTable() {
           row.original.districtId,
           row.original.stateId,
         ].filter(Boolean);
-        return <span className="text-slate-600">{orDash(parts.join(", "))}</span>;
+        return <span className="text-[var(--color-mut)]">{orDash(parts.join(", "))}</span>;
       },
     },
     {
@@ -84,20 +84,20 @@ export function VehicleOwnersTable() {
       header: "Phone no.",
       enableSorting: false,
       cell: ({ row }) => (
-        <span className="tabular-nums">{row.original.phoneNumber}</span>
+        <span className="tabular-nums text-[var(--color-fg)]">{row.original.phoneNumber}</span>
       ),
     },
     {
       id: "linked-owner",
       header: "Linked owner",
       enableSorting: false,
-      cell: () => <span className="text-slate-400">(not populated)</span>,
+      cell: () => <span className="text-[var(--color-mut)] opacity-50">(not populated)</span>,
     },
     {
       id: "is-assigned",
       header: "Is assigned",
       enableSorting: false,
-      cell: () => <span className="text-slate-400">(not populated)</span>,
+      cell: () => <span className="text-[var(--color-mut)] opacity-50">(not populated)</span>,
     },
     {
       id: "actions",

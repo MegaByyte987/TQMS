@@ -66,10 +66,7 @@ export function NarrationEditDialog({ narration, onClose }: Props) {
             <Button type="button" variant="outline" onClick={onClose}>
               Cancel
             </Button>
-            <Button
-              type="submit"
-              disabled={update.isPending || !isDirty}
-            >
+            <Button type="submit" disabled={update.isPending || !isDirty}>
               {update.isPending ? "Saving…" : "Save"}
             </Button>
           </DialogFooter>

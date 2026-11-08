@@ -14,8 +14,8 @@ export function EditVehiclePage({ vehicleId }: { vehicleId: string }) {
   if (query.isPending) {
     return (
       <div className="flex flex-col gap-4">
-        <Skeleton className="h-8 w-56" />
-        <Skeleton className="h-96 w-full" />
+        <Skeleton className="h-8 w-56 rounded-[8px]" />
+        <Skeleton className="h-96 w-full rounded-[12px]" />
       </div>
     );
   }
@@ -32,13 +32,11 @@ export function EditVehiclePage({ vehicleId }: { vehicleId: string }) {
         title={`Edit — ${vehicle.plateNo}`}
         description="Update this vehicle's registration details."
       />
-      <div className="rounded-lg border border-slate-200 bg-white p-6">
+      <div className="rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)] p-6">
         <VehicleForm
           mode="edit"
           initial={vehicle}
-          onSubmit={(values) =>
-            update.mutate({ id: vehicle.id, body: values })
-          }
+          onSubmit={(values) => update.mutate({ id: vehicle.id, body: values })}
           isPending={update.isPending}
           cancelHref={`/vehicle/vehicles/${vehicle.id}`}
         />

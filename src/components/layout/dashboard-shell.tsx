@@ -22,8 +22,7 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
       if (window.localStorage.getItem(STORAGE_KEY) === "1") {
         setCollapsed(true);
       }
-    } catch {
-    }
+    } catch {}
   }, []);
 
   const toggleCollapsed = useCallback(() => {
@@ -31,43 +30,31 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
       const next = !previous;
       try {
         window.localStorage.setItem(STORAGE_KEY, next ? "1" : "0");
-      } catch {
-      }
+      } catch {}
       return next;
     });
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-[var(--color-bg)] text-[var(--color-fg)]">
       <div className="sticky top-0 hidden h-screen lg:flex lg:shrink-0">
-        <Sidebar
-          collapsed={collapsed}
-          onToggleCollapsed={toggleCollapsed}
-        />
+        <Sidebar collapsed={collapsed} onToggleCollapsed={toggleCollapsed} />
       </div>
 
       <Drawer open={mobileOpen} onOpenChange={setMobileOpen}>
-        <DrawerContent
-          side="left"
-          showClose={false}
-          className="max-w-64 gap-0 p-0"
-        >
+        <DrawerContent side="left" className="max-w-64 gap-0 border-r-0 p-0">
           <Sidebar
             collapsed={false}
             showToggle={false}
             onToggleCollapsed={() => setMobileOpen(false)}
             onNavigate={() => setMobileOpen(false)}
-            className="border-r-0"
           />
         </DrawerContent>
       </Drawer>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <Topbar
-          user={user}
-          onOpenMobileSidebar={() => setMobileOpen(true)}
-        />
-        <main className="flex-1 p-4 sm:p-6">{children}</main>
+        <Topbar user={user} onOpenMobileSidebar={() => setMobileOpen(true)} />
+        <main className="flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
       </div>
     </div>
   );

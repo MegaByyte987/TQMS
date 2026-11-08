@@ -28,18 +28,18 @@ export function ErrorState({ error, onRetry, className }: ErrorStateProps) {
     <div
       role="alert"
       className={cn(
-        "flex flex-col items-center justify-center gap-3 rounded-lg border border-rose-200 bg-rose-50 px-6 py-10 text-center",
+        "flex flex-col items-center justify-center gap-3 rounded-[12px] border border-[var(--color-badw)] bg-[var(--color-badw)] px-6 py-10 text-center",
         className
       )}
     >
-      <div className="flex size-10 items-center justify-center rounded-full bg-rose-100 text-rose-600">
+      <div className="flex size-10 items-center justify-center rounded-full bg-[var(--color-badw)] text-[var(--color-bad)]">
         <AlertTriangle className="size-5" aria-hidden="true" />
       </div>
       <div className="flex flex-col gap-1">
-        <p className="text-sm font-medium text-rose-900">
+        <p className="text-sm font-medium text-[var(--color-bad)]">
           Could not load data
         </p>
-        <p className="max-w-md text-sm text-rose-700">{humanMessage(error)}</p>
+        <p className="max-w-md text-sm text-[var(--color-bad)]">{humanMessage(error)}</p>
       </div>
       {onRetry && (
         <Button variant="outline" onClick={onRetry} className="mt-1">

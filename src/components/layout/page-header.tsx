@@ -7,12 +7,7 @@ interface PageHeaderProps {
   className?: string;
 }
 
-export function PageHeader({
-  title,
-  description,
-  actions,
-  className,
-}: PageHeaderProps) {
+export function PageHeader({ title, description, actions, className }: PageHeaderProps) {
   return (
     <div
       className={cn(
@@ -21,16 +16,16 @@ export function PageHeader({
       )}
     >
       <div className="flex flex-col gap-1">
-        <h1 className="text-xl font-semibold tracking-tight text-slate-900">
+        <h1 className="text-2xl font-semibold leading-[1.04] tracking-[-0.055em] text-[var(--color-fg)]">
           {title}
         </h1>
         {description && (
-          <p className="text-sm text-slate-600">{description}</p>
+          <p className="text-[14px] leading-[1.5] text-[var(--color-mut)]">
+            {description}
+          </p>
         )}
       </div>
-      {actions && (
-        <div className="flex items-center gap-2">{actions}</div>
-      )}
+      {actions && <div className="flex items-center gap-2">{actions}</div>}
     </div>
   );
 }

@@ -4,17 +4,11 @@ import { cn } from "@/lib/cn";
 type StatusVariant = NonNullable<BadgeProps["variant"]>;
 
 interface StatusBadgeProps {
-  /** Human-readable status label. Required — colour alone is not permitted. */
   label: string;
   variant: StatusVariant;
   className?: string;
 }
 
-/**
- * A badge that always renders text alongside its colour.
- * This is the accessibility fix for the source system's colour-only status
- * indicators (WCAG 1.4.1) recorded in docs/system-analysis.md.
- */
 export function StatusBadge({ label, variant, className }: StatusBadgeProps) {
   return (
     <Badge
@@ -35,12 +29,15 @@ export function StatusBadge({ label, variant, className }: StatusBadgeProps) {
 }
 
 const variantDot: Record<StatusVariant, string> = {
-  default: "bg-white",
-  secondary: "bg-slate-500",
-  outline: "bg-slate-500",
-  success: "bg-emerald-600",
-  warning: "bg-amber-600",
-  destructive: "bg-rose-600",
-  info: "bg-blue-600",
-  muted: "bg-slate-400",
+  default: "bg-[var(--color-fg)]",
+  secondary: "bg-[var(--color-mut)]",
+  outline: "bg-[var(--color-mut)]",
+  ok: "bg-[var(--color-ok)]",
+  warn: "bg-[var(--color-warn)]",
+  bad: "bg-[var(--color-bad)]",
+  pri: "bg-[var(--color-pri)]",
+  muted: "border-transparent bg-gray-100 text-gray-500",
+  success: "border-transparent bg-[var(--color-okw)] text-[var(--color-ok)]",
+  info: "border-transparent bg-[var(--color-pri)] text-white",
+  warning: "border-transparent bg-[var(--color-warnw)] text-[var(--color-warn)]",
 };

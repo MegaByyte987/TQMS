@@ -4,10 +4,7 @@ import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import {
-  TextField,
-  SelectField,
-} from "@/components/shared/form-field";
+import { TextField, SelectField } from "@/components/shared/form-field";
 import {
   checkUserFormSchema,
   type CheckUserFormValues,
@@ -62,7 +59,6 @@ export function CheckUserForm({
   const stateId = watch("stateId");
   const prevState = useRef(stateId);
 
-  // Reset the district when the state changes, but not on the initial render.
   useEffect(() => {
     if (prevState.current !== stateId) {
       setValue("districtId", "");
@@ -91,7 +87,6 @@ export function CheckUserForm({
         placeholder="Enter full name"
         required
       />
-
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <SelectField
           name="stateId"
@@ -113,14 +108,12 @@ export function CheckUserForm({
           isLoading={districtsQuery.isPending}
         />
       </div>
-
       <TextField
         name="streetAddress"
         control={control}
         label="Street address"
         placeholder="Ward, street, house no."
       />
-
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <TextField
           name="mobileNumber"
@@ -138,14 +131,13 @@ export function CheckUserForm({
           type="email"
         />
       </div>
-
       <div className="mt-auto flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
         <Button type="submit" disabled={isPending || (mode === "edit" && !isDirty)}>
           {isPending
             ? "Saving…"
             : mode === "edit"
-              ? "Save changes"
-              : "Create user"}
+            ? "Save changes"
+            : "Create user"}
         </Button>
       </div>
     </form>

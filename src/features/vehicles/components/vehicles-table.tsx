@@ -59,7 +59,7 @@ export function VehiclesTable() {
       header: ({ column }) => <ColumnHeader column={column} title="S.N" />,
       meta: { align: "right" },
       cell: ({ row }) => (
-        <span className="tabular-nums text-slate-500">
+        <span className="tabular-nums text-[var(--color-mut)]">
           {row.original["s-n"]}
         </span>
       ),
@@ -68,7 +68,7 @@ export function VehiclesTable() {
       accessorKey: "plateNo",
       header: ({ column }) => <ColumnHeader column={column} title="Plate No" />,
       cell: ({ row }) => (
-        <span className="font-mono text-slate-900">{row.original.plateNo}</span>
+        <span className="font-mono text-[var(--color-fg)]">{row.original.plateNo}</span>
       ),
     },
     {
@@ -76,7 +76,7 @@ export function VehiclesTable() {
       header: "Lot No",
       enableSorting: false,
       cell: ({ row }) => (
-        <span className="text-slate-600">{orDash(row.original.lotNo)}</span>
+        <span className="text-[var(--color-mut)]">{orDash(row.original.lotNo)}</span>
       ),
     },
     {
@@ -84,7 +84,7 @@ export function VehiclesTable() {
       header: "Vehicle Number",
       enableSorting: false,
       cell: ({ row }) => (
-        <span className="tabular-nums text-slate-700">
+        <span className="tabular-nums text-[var(--color-fg)]">
           {row.original.vehicleNumber}
         </span>
       ),
@@ -97,7 +97,7 @@ export function VehiclesTable() {
         const type = typesQuery.data?.find(
           (t) => t.value === row.original.vehicleTypeId
         );
-        return <span className="text-slate-700">{type?.label ?? "—"}</span>;
+        return <span className="text-[var(--color-fg)]">{type?.label ?? "—"}</span>;
       },
     },
     {

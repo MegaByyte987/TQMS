@@ -16,11 +16,11 @@ export function FormSection({
   return (
     <fieldset className={cn("flex flex-col gap-4", className)}>
       <div className="flex flex-col gap-0.5">
-        <legend className="text-sm font-semibold text-slate-900">
+        <legend className="text-sm font-semibold text-[var(--color-fg)]">
           {title}
         </legend>
         {description && (
-          <p className="text-xs text-slate-500">{description}</p>
+          <p className="text-xs text-[var(--color-mut)]">{description}</p>
         )}
       </div>
       {children}

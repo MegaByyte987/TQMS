@@ -21,7 +21,9 @@ export function NarrationsTable() {
       header: "S.N",
       meta: { align: "right" },
       cell: ({ row }) => (
-        <span className="tabular-nums text-slate-500">{row.original["s-n"]}</span>
+        <span className="tabular-nums text-[var(--color-mut)]">
+          {row.original["s-n"]}
+        </span>
       ),
     },
     {
@@ -43,7 +45,8 @@ export function NarrationsTable() {
     },
   ];
 
-  const meta = query.data?.meta ?? { page: 1, pageSize: 100, total: 0, totalPages: 1 };
+  const meta =
+    query.data?.meta ?? { page: 1, pageSize: 100, total: 0, totalPages: 1 };
 
   return (
     <div>
@@ -51,12 +54,10 @@ export function NarrationsTable() {
         title="Narration"
         description="Reusable narration strings. Managed by an administrator; edit only."
       />
-
-      <div className="mb-4 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+      <div className="mb-4 rounded-[8px] border border-[var(--color-warnw)] bg-[var(--color-warnw)] px-3 py-2 text-sm text-[var(--color-warn)]">
         Narrations are seeded by the administrator. You can edit existing
         entries but cannot create new ones.
       </div>
-
       <DataTable<Narration>
         columns={columns}
         data={query.data?.data ?? []}
@@ -73,7 +74,6 @@ export function NarrationsTable() {
         }}
         getRowId={(r) => r.id}
       />
-
       <NarrationEditDialog
         narration={editing}
         onClose={() => setEditing(null)}

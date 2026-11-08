@@ -13,7 +13,7 @@ export function NewOtherVehiclePage() {
         title="Add other vehicle"
         description="Register a non-registered or third-party vehicle."
       />
-      <div className="max-w-md rounded-lg border border-slate-200 bg-white p-6">
+      <div className="max-w-md rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)] p-6">
         <OtherVehicleForm
           mode="create"
           onSubmit={(values) => create.mutate(values)}

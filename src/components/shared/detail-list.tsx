@@ -21,8 +21,8 @@ export function DetailList({ rows, className }: DetailListProps) {
     >
       {rows.map((row, i) => (
         <Fragment key={i}>
-          <dt className="text-slate-500">{row.label}</dt>
-          <dd className="min-w-0 break-words text-slate-900">{row.value}</dd>
+          <dt className="text-[var(--color-mut)] truncate">{row.label}</dt>
+          <dd className="min-w-0 break-words text-[var(--color-fg)]">{row.value}</dd>
         </Fragment>
       ))}
     </dl>

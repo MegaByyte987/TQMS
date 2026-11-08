@@ -23,9 +23,9 @@ export function VehicleOwnerDetails({ ownerId }: Props) {
   if (query.isPending) {
     return (
       <div className="flex flex-col gap-3">
-        <Skeleton className="h-8 w-40" />
-        <Skeleton className="h-3 w-64" />
-        <Skeleton className="h-64 w-full" />
+        <Skeleton className="h-8 w-40 rounded-[8px]" />
+        <Skeleton className="h-3 w-64 rounded-[8px]" />
+        <Skeleton className="h-64 w-full rounded-[12px]" />
       </div>
     );
   }
@@ -62,8 +62,8 @@ export function VehicleOwnerDetails({ ownerId }: Props) {
       />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <div className="rounded-lg border border-slate-200 bg-white p-4 lg:col-span-2">
-          <h2 className="mb-3 text-sm font-semibold text-slate-900">
+        <div className="rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)] p-4 lg:col-span-2">
+          <h2 className="mb-3 text-sm font-semibold tracking-[-0.015em] text-[var(--color-fg)]">
             Owner details
           </h2>
           <DetailList
@@ -83,8 +83,8 @@ export function VehicleOwnerDetails({ ownerId }: Props) {
 
         <div className="flex flex-col gap-4">
           {owner.contactPerson && (
-            <div className="rounded-lg border border-slate-200 bg-white p-4">
-              <h2 className="mb-3 text-sm font-semibold text-slate-900">
+            <div className="rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)] p-4">
+              <h2 className="mb-3 text-sm font-semibold tracking-[-0.015em] text-[var(--color-fg)]">
                 Contact person
               </h2>
               <DetailList
@@ -98,8 +98,8 @@ export function VehicleOwnerDetails({ ownerId }: Props) {
           )}
 
           {owner.registration && (
-            <div className="rounded-lg border border-slate-200 bg-white p-4">
-              <h2 className="mb-3 text-sm font-semibold text-slate-900">
+            <div className="rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)] p-4">
+              <h2 className="mb-3 text-sm font-semibold tracking-[-0.015em] text-[var(--color-fg)]">
                 Registration
               </h2>
               <DetailList
@@ -112,7 +112,7 @@ export function VehicleOwnerDetails({ ownerId }: Props) {
                         href={owner.registration.documentUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
+                        className="text-[var(--color-pri)] hover:underline"
                       >
                         View
                       </a>

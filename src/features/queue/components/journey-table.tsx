@@ -17,9 +17,9 @@ export function JourneyTable({ queueId }: JourneyTableProps) {
 
   if (query.isPending) {
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 px-6">
         {Array.from({ length: 4 }).map((_, i) => (
-          <Skeleton key={i} className="h-8 w-full" />
+          <Skeleton key={i} className="h-8 w-full rounded-[8px]" />
         ))}
       </div>
     );
@@ -39,31 +39,33 @@ export function JourneyTable({ queueId }: JourneyTableProps) {
   }
 
   return (
-    <div className="overflow-x-auto rounded-md border border-slate-200">
-      <table className="w-full border-collapse text-xs">
-        <thead>
-          <tr className="border-b border-slate-200 bg-slate-50">
-            <Th>S.N</Th>
-            <Th>Entry date</Th>
-            <Th>From</Th>
-            <Th>To</Th>
-            <Th align="right">CP1 wt.</Th>
-            <Th align="right">CP2 wt.</Th>
-            <Th align="right">CP3 wt.</Th>
-            <Th>CP 1</Th>
-            <Th>CP1 bill no.</Th>
-            <Th>CP 2</Th>
-            <Th>CP2 bill no.</Th>
-            <Th>CP 3</Th>
-            <Th>CP3 bill no.</Th>
-          </tr>
-        </thead>
-        <tbody>
-          {query.data.map((row) => (
-            <JourneyRow key={row.id} row={row} />
-          ))}
-        </tbody>
-      </table>
+    <div className="overflow-hidden rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)]">
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse text-[13.5px]">
+          <thead>
+            <tr className="border-b border-[var(--color-bd)] bg-[var(--color-ac)]">
+              <Th>S.N</Th>
+              <Th>Entry date</Th>
+              <Th>From</Th>
+              <Th>To</Th>
+              <Th align="right">CP1 wt.</Th>
+              <Th align="right">CP2 wt.</Th>
+              <Th align="right">CP3 wt.</Th>
+              <Th>CP 1</Th>
+              <Th>CP1 bill no.</Th>
+              <Th>CP 2</Th>
+              <Th>CP2 bill no.</Th>
+              <Th>CP 3</Th>
+              <Th>CP3 bill no.</Th>
+            </tr>
+          </thead>
+          <tbody>
+            {query.data.map((row) => (
+              <JourneyRow key={row.id} row={row} />
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
@@ -71,7 +73,7 @@ export function JourneyTable({ queueId }: JourneyTableProps) {
 function JourneyRow({ row }: { row: JourneyRowDto }) {
   const [c1, c2, c3] = row.checkpoints;
   return (
-    <tr className="border-b border-slate-100">
+    <tr className="border-b border-[var(--color-bd)] last:border-b-0">
       <Td>{row.sN}</Td>
       <Td>{displayBS(row.entryDateBS)}</Td>
       <Td>{row.from}</Td>
@@ -89,17 +91,11 @@ function JourneyRow({ row }: { row: JourneyRowDto }) {
   );
 }
 
-function Th({
-  children,
-  align,
-}: {
-  children: React.ReactNode;
-  align?: "right";
-}) {
+function Th({ children, align }: { children: React.ReactNode; align?: "right" }) {
   return (
     <th
       className={
-        "whitespace-nowrap px-2 py-2 text-left text-[10px] font-medium uppercase tracking-wide text-slate-500 " +
+        "h-[38px] whitespace-nowrap px-3 text-left text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--color-mut)] " +
         (align === "right" ? "text-right" : "")
       }
     >
@@ -120,7 +116,7 @@ function Td({
   return (
     <td
       className={
-        "px-2 py-2 text-slate-700 " +
+        "whitespace-nowrap px-3 py-2.5 text-[var(--color-fg)] " +
         (align === "right" ? "text-right tabular-nums " : "") +
         className
       }

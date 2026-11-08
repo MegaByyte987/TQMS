@@ -49,7 +49,6 @@ export function QueueDashboard() {
   const pendingPage = clampPage(
     Number(searchParams.get("pendingPage") ?? "1")
   );
-
   const tab = toTab(searchParams.get("status"));
   const existingPage = clampPage(
     Number(searchParams.get("existingPage") ?? "1")
@@ -102,6 +101,7 @@ export function QueueDashboard() {
     total: 0,
     totalPages: 1,
   };
+
   const existingMeta = existingQuery.data?.meta ?? {
     page: 1,
     pageSize: PAGE_SIZE,
@@ -127,10 +127,10 @@ export function QueueDashboard() {
       <section className="flex flex-col gap-3">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-sm font-semibold text-slate-900">
+            <h2 className="text-sm font-semibold tracking-tight text-[var(--color-fg)]">
               Pending queue
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-[var(--color-mut)]">
               Receipts awaiting check in. Refreshes every 15 seconds.
             </p>
           </div>
@@ -161,9 +161,7 @@ export function QueueDashboard() {
           onCheckIn={(card) => setCheckInId(card.id)}
           onView={(card) => setViewCard(card)}
           emptyTitle={
-            pendingVehicle
-              ? "No pending receipts match"
-              : "No pending receipts"
+            pendingVehicle ? "No pending receipts match" : "No pending receipts"
           }
           emptyDescription={
             pendingVehicle
@@ -176,10 +174,10 @@ export function QueueDashboard() {
       <section className="flex flex-col gap-3">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-sm font-semibold text-slate-900">
+            <h2 className="text-sm font-semibold tracking-tight text-[var(--color-fg)]">
               Existing queue
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-[var(--color-mut)]">
               Checked-in and in-progress journeys.
             </p>
           </div>
@@ -196,12 +194,10 @@ export function QueueDashboard() {
             activeCount={activeFilterCount}
           />
         </div>
-
         <QueueTabs
           value={tab}
           onChange={(t) => setUrlParams({ status: t, existingPage: 1 })}
         />
-
         <ExistingQueueGrid
           cards={existingQuery.data?.data ?? []}
           total={existingMeta.total}
@@ -229,25 +225,16 @@ export function QueueDashboard() {
         />
       </section>
 
-      <CheckInPanel
-        queueId={checkInId}
-        onClose={() => setCheckInId(null)}
-      />
-
+      <CheckInPanel queueId={checkInId} onClose={() => setCheckInId(null)} />
       <EndJourneyDialog
         card={endJourneyCard}
         onClose={() => setEndJourneyCard(null)}
       />
 
-      <Drawer
-        open={Boolean(viewCard)}
-        onOpenChange={(open) => !open && setViewCard(null)}
-      >
+      <Drawer open={Boolean(viewCard)} onOpenChange={(open) => !open && setViewCard(null)}>
         <DrawerContent side="right" className="max-w-4xl">
           <DrawerHeader>
-            <DrawerTitle>
-              Journey details — {viewCard?.vehicleNo}
-            </DrawerTitle>
+            <DrawerTitle>Journey details — {viewCard?.vehicleNo}</DrawerTitle>
             <DrawerDescription>
               Weights and bill numbers recorded at each checkpoint.
             </DrawerDescription>

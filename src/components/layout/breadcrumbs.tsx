@@ -20,7 +20,7 @@ export function Breadcrumbs() {
           return (
             <Fragment key={crumb.href}>
               {index > 0 && (
-                <li aria-hidden="true" className="text-slate-400">
+                <li aria-hidden="true" className="text-[var(--color-mut)]">
                   <ChevronRight className="size-3.5" />
                 </li>
               )}
@@ -28,14 +28,14 @@ export function Breadcrumbs() {
                 {isLast ? (
                   <span
                     aria-current="page"
-                    className="truncate font-medium text-slate-900"
+                    className="truncate font-medium text-[var(--color-fg)]"
                   >
                     {crumb.label}
                   </span>
                 ) : (
                   <Link
                     href={crumb.href}
-                    className="truncate text-slate-600 hover:text-slate-900 hover:underline"
+                    className="truncate text-[var(--color-mut)] hover:text-[var(--color-fg)] hover:underline"
                   >
                     {crumb.label}
                   </Link>

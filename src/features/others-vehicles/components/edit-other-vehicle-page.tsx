@@ -14,8 +14,8 @@ export function EditOtherVehiclePage({ vehicleId }: { vehicleId: string }) {
   if (query.isPending) {
     return (
       <div className="flex flex-col gap-4">
-        <Skeleton className="h-8 w-56" />
-        <Skeleton className="h-48 w-full" />
+        <Skeleton className="h-8 w-56 rounded-[8px]" />
+        <Skeleton className="h-48 w-full rounded-[12px]" />
       </div>
     );
   }
@@ -32,7 +32,7 @@ export function EditOtherVehiclePage({ vehicleId }: { vehicleId: string }) {
         title={`Edit — ${entry.formatedNo}`}
         description="Changing the type re-derives the formatted number."
       />
-      <div className="max-w-md rounded-lg border border-slate-200 bg-white p-6">
+      <div className="max-w-md rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)] p-6">
         <OtherVehicleForm
           mode="edit"
           initial={entry}

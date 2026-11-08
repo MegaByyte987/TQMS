@@ -28,9 +28,9 @@ export function ProfileMenu({ user }: { user: AuthUser }) {
         <button
           type="button"
           aria-label="Open profile menu"
-          className="flex items-center gap-2 rounded-full border border-slate-200 bg-white p-1 pr-3 text-sm font-medium text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+          className="flex items-center gap-2 rounded-full border border-[var(--color-bd)] bg-[var(--color-card)] p-1 pr-3 text-sm font-medium text-[var(--color-fg)] hover:bg-[var(--color-ac)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6d8bff]"
         >
-          <span className="flex size-7 items-center justify-center rounded-full bg-slate-900 text-xs font-semibold text-white">
+          <span className="flex size-7 items-center justify-center rounded-full bg-[var(--color-fg)] text-xs font-semibold text-[var(--color-bg)]">
             {initials || "CU"}
           </span>
           <span className="hidden max-w-32 truncate sm:inline">
@@ -41,10 +41,10 @@ export function ProfileMenu({ user }: { user: AuthUser }) {
 
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="flex flex-col gap-0.5">
-          <span className="text-sm font-medium text-slate-900">
+          <span className="text-sm font-medium text-[var(--color-fg)]">
             {user.name}
           </span>
-          <span className="text-xs font-normal text-slate-500">
+          <span className="text-xs font-normal text-[var(--color-mut)]">
             {user.checkpoint}
           </span>
         </DropdownMenuLabel>
@@ -63,7 +63,7 @@ export function ProfileMenu({ user }: { user: AuthUser }) {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className="cursor-pointer text-rose-600 focus:bg-rose-50 focus:text-rose-700"
+          className="cursor-pointer text-[var(--color-bad)] focus:bg-[var(--color-badw)] focus:text-[var(--color-bad)]"
           disabled={logout.isPending}
           onSelect={() => logout.mutate()}
         >

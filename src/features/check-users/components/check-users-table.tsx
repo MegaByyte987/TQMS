@@ -22,9 +22,7 @@ import { SearchInput } from "@/components/shared/search-input";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { CheckUserDetails } from "./check-user-details";
 import { CheckUserForm } from "./check-user-form";
-import {
-  useCheckUsers,
-} from "../hooks/use-check-users";
+import { useCheckUsers } from "../hooks/use-check-users";
 import {
   useCreateCheckUser,
   useDeleteCheckUser,
@@ -55,7 +53,6 @@ export function CheckUsersTable() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const q = searchParams.get("q") ?? "";
   const page = clampPage(Number(searchParams.get("page") ?? "1"));
   const pageSize = clampPageSize(Number(searchParams.get("pageSize") ?? "25"));
@@ -86,7 +83,6 @@ export function CheckUsersTable() {
     [pathname, router, searchParams]
   );
 
-  // If a filter change leaves the current page past the last page, snap to 1.
   useEffect(() => {
     if (
       query.data &&
@@ -106,7 +102,7 @@ export function CheckUsersTable() {
         header: ({ column }) => <ColumnHeader column={column} title="S.N" />,
         meta: { align: "right" },
         cell: ({ row }) => (
-          <span className="tabular-nums text-slate-500">
+          <span className="tabular-nums text-[var(--color-mut)]">
             {row.original["sn"]}
           </span>
         ),
@@ -120,7 +116,9 @@ export function CheckUsersTable() {
         header: "Address",
         enableSorting: false,
         cell: ({ row }) => (
-          <span className="text-slate-600">{orDash(row.original.streetAddress)}</span>
+          <span className="text-[var(--color-mut)]">
+            {orDash(row.original.streetAddress)}
+          </span>
         ),
       },
       {
@@ -128,7 +126,9 @@ export function CheckUsersTable() {
         header: "Contact",
         enableSorting: false,
         cell: ({ row }) => (
-          <span className="tabular-nums">{formatPhone(row.original.mobileNumber)}</span>
+          <span className="tabular-nums text-[var(--color-fg)]">
+            {formatPhone(row.original.mobileNumber)}
+          </span>
         ),
       },
       {
@@ -138,7 +138,7 @@ export function CheckUsersTable() {
         cell: ({ row }) => (
           <StatusBadge
             label={row.original.status ? "Active" : "Inactive"}
-            variant={row.original.status ? "success" : "muted"}
+            variant={row.original.status ? "ok" : "muted"}
           />
         ),
       },
@@ -159,20 +159,19 @@ export function CheckUsersTable() {
   );
 
   const sorting: SortingState = [{ id: sort, desc: order === "desc" }];
-
   const onSortingChange = (updater: Updater<SortingState>) => {
-  const next = typeof updater === "function" ? updater(sorting) : updater;
-  const first = next[0];
-  if (!first) {
-    setUrlParams({ sort: undefined, order: undefined, page: 1 });
-  } else {
-    setUrlParams({
-      sort: first.id,
-      order: first.desc ? "desc" : "asc",
-      page: 1,
-    });
-  }
-};
+    const next = typeof updater === "function" ? updater(sorting) : updater;
+    const first = next[0];
+    if (!first) {
+      setUrlParams({ sort: undefined, order: undefined, page: 1 });
+    } else {
+      setUrlParams({
+        sort: first.id,
+        order: first.desc ? "desc" : "asc",
+        page: 1,
+      });
+    }
+  };
 
   const onSubmit = (values: CheckUserFormValues) => {
     if (formState?.mode === "edit") {
@@ -214,11 +213,8 @@ export function CheckUsersTable() {
           </Button>
         }
       />
-
       <div className="flex flex-col gap-4">
-        <FilterBar
-          onClear={() => setUrlParams({ q: undefined, page: 1 })}
-        >
+        <FilterBar onClear={() => setUrlParams({ q: undefined, page: 1 })}>
           <SearchInput
             value={q}
             onChange={(value) =>
@@ -227,7 +223,6 @@ export function CheckUsersTable() {
             placeholder="Search by name…"
           />
         </FilterBar>
-
         <DataTable<CheckUser>
           columns={columns}
           data={rows}
@@ -260,7 +255,6 @@ export function CheckUsersTable() {
           getRowId={(user) => user.id}
         />
       </div>
-
       <Drawer
         open={formState !== null}
         onOpenChange={(open) => !open && setFormState(null)}
@@ -295,17 +289,15 @@ export function CheckUsersTable() {
           )}
         </DrawerContent>
       </Drawer>
-
       <CheckUserDetails user={viewUser} onClose={() => setViewUser(null)} />
-
       <ConfirmDialog
         open={Boolean(deleteUser)}
         onOpenChange={(open) => !open && setDeleteUser(null)}
         title="Delete this user?"
         description={
           <>
-            <strong>{deleteUser?.name}</strong> will be permanently removed.
-            This action cannot be undone.
+            <strong className="text-[var(--color-fg)]">{deleteUser?.name}</strong>{" "}
+            will be permanently removed. This action cannot be undone.
           </>
         }
         confirmLabel="Delete"

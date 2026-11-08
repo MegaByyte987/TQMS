@@ -13,7 +13,7 @@ export function NewVehiclePage() {
         title="Add vehicle"
         description="Register a new vehicle in the fleet."
       />
-      <div className="rounded-lg border border-slate-200 bg-white p-6">
+      <div className="rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)] p-6">
         <VehicleForm
           mode="create"
           onSubmit={(values) => create.mutate(values)}

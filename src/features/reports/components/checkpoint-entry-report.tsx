@@ -82,7 +82,7 @@ export function CheckpointEntryReport() {
       header: "Total vehicle",
       meta: { align: "right" },
       cell: ({ row }) => (
-        <span className="tabular-nums">{row.original.totalVehicle}</span>
+        <span className="tabular-nums text-[var(--color-fg)]">{row.original.totalVehicle}</span>
       ),
     },
     {
@@ -90,7 +90,7 @@ export function CheckpointEntryReport() {
       header: "Total amount",
       meta: { align: "right" },
       cell: ({ row }) => (
-        <span className="tabular-nums">
+        <span className="tabular-nums text-[var(--color-fg)]">
           {formatCurrency(row.original.totalAmount)}
         </span>
       ),
@@ -113,17 +113,17 @@ export function CheckpointEntryReport() {
           }
         >
           <div className="flex flex-col gap-1.5">
-            <Label className="text-xs">User</Label>
+            <Label className="text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--color-mut)]">User</Label>
             <Select
               value={userId || "all"}
               onValueChange={(v) =>
                 setUrlParams({ userId: v === "all" ? undefined : v, page: 1 })
               }
             >
-              <SelectTrigger className="h-9 w-52">
+              <SelectTrigger className="h-[38px] w-52 rounded-[8px] border-[var(--color-bd)] bg-[var(--color-card)] text-[14px] text-[var(--color-fg)] focus:ring-[#6d8bff]">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="rounded-[8px] border-[var(--color-bd)] bg-[var(--color-card)] text-[var(--color-fg)]">
                 <SelectItem value="all">All users</SelectItem>
                 {(usersQuery.data ?? []).map((u) => (
                   <SelectItem key={u.id} value={u.id}>
@@ -135,7 +135,7 @@ export function CheckpointEntryReport() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="from-date" className="text-xs">From</Label>
+            <Label htmlFor="from-date" className="text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--color-mut)]">From</Label>
             <Input
               id="from-date"
               value={fromBS}
@@ -143,12 +143,12 @@ export function CheckpointEntryReport() {
                 setUrlParams({ fromBS: e.target.value || undefined, page: 1 })
               }
               placeholder="2083-07-20"
-              className="h-9 w-32"
+              className="h-[38px] w-32 rounded-[8px] border-[var(--color-bd)] bg-[var(--color-card)] text-[14px] text-[var(--color-fg)]"
             />
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="to-date" className="text-xs">To</Label>
+            <Label htmlFor="to-date" className="text-[11px] font-medium uppercase tracking-[0.1em] text-[var(--color-mut)]">To</Label>
             <Input
               id="to-date"
               value={toBS}
@@ -156,28 +156,30 @@ export function CheckpointEntryReport() {
                 setUrlParams({ toBS: e.target.value || undefined, page: 1 })
               }
               placeholder="2083-07-20"
-              className="h-9 w-32"
+              className="h-[38px] w-32 rounded-[8px] border-[var(--color-bd)] bg-[var(--color-card)] text-[14px] text-[var(--color-fg)]"
             />
           </div>
         </FilterBar>
 
-        <DataTable<CheckpointEntryRow>
-          columns={columns}
-          data={reportQuery.data?.data ?? []}
-          isLoading={reportQuery.isPending}
-          isError={reportQuery.isError}
-          error={reportQuery.error}
-          onRetry={() => reportQuery.refetch()}
-          pagination={meta}
-          onPageChange={(p) => setUrlParams({ page: p })}
-          onPageSizeChange={() => {}}
-          emptyState={{
-            title: "No activity in this range",
-            description:
-              "Try widening the date range or clearing the user filter.",
-          }}
-          getRowId={(r) => r.id}
-        />
+        <div className="overflow-hidden rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)]">
+          <DataTable<CheckpointEntryRow>
+            columns={columns}
+            data={reportQuery.data?.data ?? []}
+            isLoading={reportQuery.isPending}
+            isError={reportQuery.isError}
+            error={reportQuery.error}
+            onRetry={() => reportQuery.refetch()}
+            pagination={meta}
+            onPageChange={(p) => setUrlParams({ page: p })}
+            onPageSizeChange={() => {}}
+            emptyState={{
+              title: "No activity in this range",
+              description:
+                "Try widening the date range or clearing the user filter.",
+            }}
+            getRowId={(r) => r.id}
+          />
+        </div>
       </div>
     </div>
   );

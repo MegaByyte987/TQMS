@@ -10,17 +10,10 @@ interface QueueTabsProps {
 
 export function QueueTabs({ value, onChange }: QueueTabsProps) {
   return (
-    <Tabs
-      value={value}
-      onValueChange={(v) => onChange(v as ExistingQueueTab)}
-    >
+    <Tabs value={value} onValueChange={(v) => onChange(v as ExistingQueueTab)}>
       <TabsList className="h-8">
         {EXISTING_QUEUE_TABS.map((tab) => (
-          <TabsTrigger
-            key={tab.value}
-            value={tab.value}
-            className="text-xs"
-          >
+          <TabsTrigger key={tab.value} value={tab.value} className="text-xs">
             {tab.label}
           </TabsTrigger>
         ))}

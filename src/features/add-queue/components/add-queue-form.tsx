@@ -19,10 +19,7 @@ import {
 } from "../schemas";
 import { ReceiptPreview } from "./receipt-preview";
 import { useCreateQueue } from "../hooks/use-create-queue";
-import type {
-  CreateQueueResponse,
-  ReceiptDraft,
-} from "../types";
+import type { CreateQueueResponse, ReceiptDraft } from "../types";
 
 interface AddQueueFormProps {
   onIssued: (data: CreateQueueResponse) => void;
@@ -31,11 +28,7 @@ interface AddQueueFormProps {
 const DEFAULT_FEES = [{ label: "काटा शुल्क", amount: 50 }];
 
 export function AddQueueForm({ onIssued }: AddQueueFormProps) {
-    const {
-    control,
-    handleSubmit,
-    watch,
-  } = useForm<AddQueueFormValues>({
+  const { control, handleSubmit, watch } = useForm<AddQueueFormValues>({
     resolver: zodResolver(addQueueFormSchema),
     defaultValues: {
       vehicleId: "",
@@ -53,27 +46,27 @@ export function AddQueueForm({ onIssued }: AddQueueFormProps) {
   const createMutation = useCreateQueue(onIssued);
 
   const vehiclesQuery = useQuery({
-  queryKey: ["vehicles", "lookup"],
-  queryFn: async () => {
-    const res = await api.get<{ id: string; plateNo: string }[]>(
-      "/vehicles?pageSize=100"
-    );
-    return res.data.map((v) => ({ value: v.id, label: v.plateNo }));
-  },
-  staleTime: 60_000,
+    queryKey: ["vehicles", "lookup"],
+    queryFn: async () => {
+      const res = await api.get<{ id: string; plateNo: string }[]>(
+        "/vehicles?pageSize=100"
+      );
+      return res.data.map((v) => ({ value: v.id, label: v.plateNo }));
+    },
+    staleTime: 60_000,
   });
 
   const checkpointsQuery = useLookup("checkpoints");
-  
+
   const narrationsQuery = useQuery({
-  queryKey: ["narrations", "lookup"],
-  queryFn: async () => {
-    const res = await api.get<{ id: string; text: string }[]>(
-      "/narrations?pageSize=100"
-    );
-    return res.data.map((n) => ({ value: n.id, label: n.text }));
-  },
-  staleTime: 60_000,
+    queryKey: ["narrations", "lookup"],
+    queryFn: async () => {
+      const res = await api.get<{ id: string; text: string }[]>(
+        "/narrations?pageSize=100"
+      );
+      return res.data.map((n) => ({ value: n.id, label: n.text }));
+    },
+    staleTime: 60_000,
   });
 
   const values = watch();
@@ -104,15 +97,12 @@ export function AddQueueForm({ onIssued }: AddQueueFormProps) {
   };
 
   return (
-    <form
-      noValidate
-    >
+    <form noValidate>
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_minmax(280px,320px)]">
         <div className="flex flex-col gap-4">
-          <h2 className="text-sm font-semibold text-slate-900">
+          <h2 className="text-sm font-semibold tracking-tight text-[var(--color-fg)]">
             Queue entry
           </h2>
-
           <SelectField
             name="vehicleId"
             control={control}
@@ -122,7 +112,6 @@ export function AddQueueForm({ onIssued }: AddQueueFormProps) {
             required
             isLoading={vehiclesQuery.isPending}
           />
-
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <SelectField
               name="fromCheckpointId"
@@ -141,7 +130,6 @@ export function AddQueueForm({ onIssued }: AddQueueFormProps) {
               required
             />
           </div>
-
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <TextField
               name="grossWeight"
@@ -159,14 +147,12 @@ export function AddQueueForm({ onIssued }: AddQueueFormProps) {
               required
             />
           </div>
-
           <TextField
             name="transportCompany"
             control={control}
             label="Transport company"
             placeholder="Optional"
           />
-
           <TextField
             name="loadDetails"
             control={control}
@@ -174,7 +160,6 @@ export function AddQueueForm({ onIssued }: AddQueueFormProps) {
             placeholder="e.g. Cement bags — 200 units"
             required
           />
-
           <SelectField
             name="narration"
             control={control}
@@ -182,7 +167,6 @@ export function AddQueueForm({ onIssued }: AddQueueFormProps) {
             options={narrationsQuery.data ?? []}
             placeholder="Select narration…"
           />
-
           <TextField
             name="driverPhone"
             control={control}
@@ -190,7 +174,6 @@ export function AddQueueForm({ onIssued }: AddQueueFormProps) {
             type="tel"
             placeholder="98XXXXXXXX"
           />
-
           <div className="mt-2 flex justify-end">
             <Button
               type="submit"
@@ -201,9 +184,8 @@ export function AddQueueForm({ onIssued }: AddQueueFormProps) {
             </Button>
           </div>
         </div>
-
         <div className="lg:sticky lg:top-4 lg:self-start">
-          <h2 className="mb-2 text-sm font-semibold text-slate-900">
+          <h2 className="mb-2 text-sm font-semibold tracking-tight text-[var(--color-fg)]">
             Receipt preview
           </h2>
           <ReceiptPreview draft={draft} />

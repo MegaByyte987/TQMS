@@ -36,10 +36,7 @@ export function CheckInPanel({ queueId, onClose }: CheckInPanelProps) {
   };
 
   return (
-    <Drawer
-      open={Boolean(queueId)}
-      onOpenChange={(open) => !open && onClose()}
-    >
+    <Drawer open={Boolean(queueId)} onOpenChange={(open) => !open && onClose()}>
       <DrawerContent side="right" className="max-w-md">
         <DrawerHeader>
           <DrawerTitle>Check in vehicle</DrawerTitle>
@@ -47,99 +44,64 @@ export function CheckInPanel({ queueId, onClose }: CheckInPanelProps) {
             Confirm the details below before starting the journey.
           </DrawerDescription>
         </DrawerHeader>
-
         {detailQuery.isPending && (
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 px-6">
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="flex justify-between gap-4">
-                <Skeleton className="h-3 w-24" />
-                <Skeleton className="h-3 w-32" />
+                <Skeleton className="h-3 w-24 rounded-[8px]" />
+                <Skeleton className="h-3 w-32 rounded-[8px]" />
               </div>
             ))}
           </div>
         )}
-
         {detailQuery.isError && (
           <ErrorState
             error={detailQuery.error}
             onRetry={() => detailQuery.refetch()}
           />
         )}
-
         {detailQuery.data && (
-          <DetailList
-            rows={[
-              {
-                label: "Status",
-                value: (
-                  <StatusBadge
-                    label={QUEUE_STATUS_LABEL[detailQuery.data.status]}
-                    variant={QUEUE_STATUS_VARIANT[detailQuery.data.status]}
-                  />
-                ),
-              },
-              {
-                label: "Queue No.",
-                value: detailQuery.data.queueNumber ?? "—",
-              },
-              {
-                label: "Receipt",
-                value: detailQuery.data.receiptNo,
-              },
-              {
-                label: "Entry date",
-                value: displayBS(detailQuery.data.entryDateBS),
-              },
-              {
-                label: "Vehicle",
-                value: detailQuery.data.vehicleNo,
-              },
-              {
-                label: "Type",
-                value: detailQuery.data.vehicleType,
-              },
-              {
-                label: "Route",
-                value: detailQuery.data.routeLabel,
-              },
-              {
-                label: "Last checkpoint",
-                value: detailQuery.data.lastCheckpoint,
-              },
-              {
-                label: "Weight",
-                value: formatWeight(detailQuery.data.weightKg),
-              },
-              {
-                label: "Load details",
-                value: orDash(detailQuery.data.loadDetails),
-              },
-              {
-                label: "Transport",
-                value: orDash(detailQuery.data.transportCompany),
-              },
-              {
-                label: "Owner",
-                value: orDash(detailQuery.data.ownerName),
-              },
-              {
-                label: "Driver phone",
-                value: detailQuery.data.driverPhone
-                  ? formatPhone(detailQuery.data.driverPhone)
-                  : "—",
-              },
-              {
-                label: "Registered",
-                value: detailQuery.data.isRegistered ? "Yes" : "No",
-              },
-              {
-                label: "Card",
-                value: detailQuery.data.cardRegistered ? "Registered" : "Not registered",
-              },
-            ]}
-          />
+          <div className="px-6">
+            <DetailList
+              rows={[
+                {
+                  label: "Status",
+                  value: (
+                    <StatusBadge
+                      label={QUEUE_STATUS_LABEL[detailQuery.data.status]}
+                      variant={QUEUE_STATUS_VARIANT[detailQuery.data.status]}
+                    />
+                  ),
+                },
+                { label: "Queue No.", value: detailQuery.data.queueNumber ?? "—" },
+                { label: "Receipt", value: detailQuery.data.receiptNo },
+                { label: "Entry date", value: displayBS(detailQuery.data.entryDateBS) },
+                { label: "Vehicle", value: detailQuery.data.vehicleNo },
+                { label: "Type", value: detailQuery.data.vehicleType },
+                { label: "Route", value: detailQuery.data.routeLabel },
+                { label: "Last checkpoint", value: detailQuery.data.lastCheckpoint },
+                { label: "Weight", value: formatWeight(detailQuery.data.weightKg) },
+                { label: "Load details", value: orDash(detailQuery.data.loadDetails) },
+                { label: "Transport", value: orDash(detailQuery.data.transportCompany) },
+                { label: "Owner", value: orDash(detailQuery.data.ownerName) },
+                {
+                  label: "Driver phone",
+                  value: detailQuery.data.driverPhone
+                    ? formatPhone(detailQuery.data.driverPhone)
+                    : "—",
+                },
+                {
+                  label: "Registered",
+                  value: detailQuery.data.isRegistered ? "Yes" : "No",
+                },
+                {
+                  label: "Card",
+                  value: detailQuery.data.cardRegistered ? "Registered" : "Not registered",
+                },
+              ]}
+            />
+          </div>
         )}
-
         <DrawerFooter>
           <Button variant="outline" onClick={onClose}>
             Cancel

@@ -26,21 +26,21 @@ export function EndJourneyDialog({ card, onClose }: EndJourneyDialogProps) {
       description={
         card && (
           <div className="flex flex-col gap-3 text-sm">
-            <p>
-              Ending the journey moves the entry to <strong>Payment Pending</strong>.
+            <p className="text-[var(--color-mut)]">
+              Ending the journey moves the entry to <strong className="text-[var(--color-fg)]">Payment Pending</strong>.
               The operator cannot reverse this from the queue screen.
             </p>
-            <dl className="grid grid-cols-[6rem_1fr] gap-x-2 gap-y-1 rounded-md bg-slate-50 p-3 text-xs">
-              <dt className="text-slate-500">Vehicle</dt>
-              <dd className="font-medium text-slate-900">{card.vehicleNo}</dd>
-              <dt className="text-slate-500">Queue</dt>
-              <dd className="font-mono text-slate-900">
+            <dl className="grid grid-cols-[6rem_1fr] gap-x-2 gap-y-1.5 rounded-[8px] border border-[var(--color-bd)] bg-[var(--color-ac)] p-3 text-xs">
+              <dt className="text-[var(--color-mut)]">Vehicle</dt>
+              <dd className="font-medium text-[var(--color-fg)]">{card.vehicleNo}</dd>
+              <dt className="text-[var(--color-mut)]">Queue</dt>
+              <dd className="font-mono text-[var(--color-fg)]">
                 {card.queueNumber ?? "—"}
               </dd>
-              <dt className="text-slate-500">Route</dt>
-              <dd className="text-slate-900">{card.routeLabel}</dd>
-              <dt className="text-slate-500">Weight</dt>
-              <dd className="tabular-nums text-slate-900">
+              <dt className="text-[var(--color-mut)]">Route</dt>
+              <dd className="text-[var(--color-fg)]">{card.routeLabel}</dd>
+              <dt className="text-[var(--color-mut)]">Weight</dt>
+              <dd className="tabular-nums text-[var(--color-fg)]">
                 {formatWeight(card.weightKg)}
               </dd>
             </dl>

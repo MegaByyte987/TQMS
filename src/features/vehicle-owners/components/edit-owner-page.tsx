@@ -14,8 +14,8 @@ export function EditVehicleOwnerPage({ ownerId }: { ownerId: string }) {
   if (query.isPending) {
     return (
       <div className="flex flex-col gap-4">
-        <Skeleton className="h-8 w-64" />
-        <Skeleton className="h-96 w-full" />
+        <Skeleton className="h-8 w-64 rounded-[8px]" />
+        <Skeleton className="h-96 w-full rounded-[12px]" />
       </div>
     );
   }
@@ -32,7 +32,7 @@ export function EditVehicleOwnerPage({ ownerId }: { ownerId: string }) {
         title={`Edit — ${owner.name}`}
         description="Update this owner's record."
       />
-      <div className="rounded-lg border border-slate-200 bg-white p-6">
+      <div className="rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)] p-6">
         <VehicleOwnerForm
           mode="edit"
           initial={owner}

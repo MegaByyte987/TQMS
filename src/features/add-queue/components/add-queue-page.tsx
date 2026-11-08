@@ -51,13 +51,11 @@ function IssuedView({
         title="Receipt issued"
         description="Print the receipt for the driver, or return to the queue."
       />
-
       <div className="flex flex-col items-center gap-4">
-        <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm text-emerald-900">
+        <div className="rounded-[8px] border border-[var(--color-okw)] bg-[var(--color-okw)] px-4 py-2 text-sm text-[var(--color-ok)]">
           Receipt <strong>{data.receipt.receiptNo}</strong> issued for{" "}
           <strong>{data.receipt.vehicleNo}</strong>.
         </div>
-
         <ReceiptPreview
           draft={{
             receiptNo: data.receipt.receiptNo,
@@ -72,7 +70,6 @@ function IssuedView({
           }}
           issued
         />
-
         <div className="flex flex-wrap items-center justify-center gap-2 no-print">
           <Button variant="outline" onClick={onReset}>
             <ArrowLeft className="size-4" aria-hidden="true" />

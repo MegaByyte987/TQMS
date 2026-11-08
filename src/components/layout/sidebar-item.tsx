@@ -4,11 +4,7 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { NavItem } from "@/lib/routes";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/cn";
 
 interface SidebarItemProps {
@@ -27,11 +23,9 @@ export function SidebarItem({
   onRequestExpand,
 }: SidebarItemProps) {
   const hasChildren = Boolean(item.children?.length);
-  const isActive =
-    pathname === item.href || pathname.startsWith(item.href + "/");
+  const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
   const hasActiveChild = item.children?.some(
-    (child) =>
-      pathname === child.href || pathname.startsWith(child.href + "/")
+    (child) => pathname === child.href || pathname.startsWith(child.href + "/")
   );
 
   const [open, setOpen] = useState<boolean | null>(null);
@@ -50,11 +44,11 @@ export function SidebarItem({
         onClick={onNavigate}
         aria-current={isActive ? "page" : undefined}
         className={cn(
-          "flex items-center gap-2 rounded-md px-2 py-2 text-sm transition-colors",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+          "flex items-center gap-2 rounded-[8px] px-2 py-2 text-sm transition-colors",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6d8bff]",
           isActive
-            ? "bg-slate-900 text-white"
-            : "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
+            ? "bg-[var(--color-ac)] font-medium text-[var(--color-fg)]"
+            : "text-[var(--color-mut)] hover:bg-[var(--color-ac)] hover:text-[var(--color-fg)]",
           collapsed && "justify-center px-0"
         )}
       >
@@ -90,11 +84,11 @@ export function SidebarItem({
           }
         }}
         className={cn(
-          "flex w-full items-center gap-2 rounded-md px-2 py-2 text-sm transition-colors",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+          "flex w-full items-center gap-2 rounded-[8px] px-2 py-2 text-sm transition-colors",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6d8bff]",
           isActive || hasActiveChild
-            ? "text-slate-900"
-            : "text-slate-700 hover:bg-slate-100 hover:text-slate-900",
+            ? "text-[var(--color-fg)]"
+            : "text-[var(--color-mut)] hover:bg-[var(--color-ac)] hover:text-[var(--color-fg)]",
           collapsed && "justify-center px-0"
         )}
       >
@@ -115,9 +109,7 @@ export function SidebarItem({
       {!collapsed && isOpen && (
         <ul className="mt-0.5 flex flex-col gap-0.5 pl-8">
           {item.children!.map((child) => {
-            const active =
-              pathname === child.href ||
-              pathname.startsWith(child.href + "/");
+            const active = pathname === child.href || pathname.startsWith(child.href + "/");
             return (
               <li key={child.href}>
                 <Link
@@ -125,11 +117,11 @@ export function SidebarItem({
                   onClick={onNavigate}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "block rounded-md px-2 py-1.5 text-sm transition-colors",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+                    "block rounded-[8px] px-2 py-1.5 text-sm transition-colors",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6d8bff]",
                     active
-                      ? "bg-slate-100 font-medium text-slate-900"
-                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                      ? "bg-[var(--color-ac)] font-medium text-[var(--color-fg)]"
+                      : "text-[var(--color-mut)] hover:bg-[var(--color-ac)] hover:text-[var(--color-fg)]"
                   )}
                 >
                   {child.label}

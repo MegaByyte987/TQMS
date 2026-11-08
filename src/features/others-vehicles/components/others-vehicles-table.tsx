@@ -58,7 +58,7 @@ export function OthersVehiclesTable() {
       header: ({ column }) => <ColumnHeader column={column} title="S.N" />,
       meta: { align: "right" },
       cell: ({ row }) => (
-        <span className="tabular-nums text-slate-500">
+        <span className="tabular-nums text-[var(--color-mut)]">
           {row.original["s-n"]}
         </span>
       ),
@@ -69,7 +69,7 @@ export function OthersVehiclesTable() {
         <ColumnHeader column={column} title="Formated No" />
       ),
       cell: ({ row }) => (
-        <span className="font-mono text-slate-900">
+        <span className="font-mono text-[var(--color-fg)]">
           {row.original.formatedNo}
         </span>
       ),
@@ -79,7 +79,7 @@ export function OthersVehiclesTable() {
       header: "Number Type",
       enableSorting: false,
       cell: ({ row }) => (
-        <span className="text-slate-700">{row.original.numberType}</span>
+        <span className="text-[var(--color-fg)]">{row.original.numberType}</span>
       ),
     },
     {
@@ -91,7 +91,7 @@ export function OthersVehiclesTable() {
           (p) => p.value === row.original.plateTypeId
         );
         return (
-          <span className="text-slate-700">{plateType?.label ?? "—"}</span>
+          <span className="text-[var(--color-fg)]">{plateType?.label ?? "—"}</span>
         );
       },
     },
@@ -132,7 +132,7 @@ export function OthersVehiclesTable() {
         }
       />
 
-      <div className="mb-4 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+      <div className="mb-4 rounded-[8px] border border-[var(--color-warnw)] bg-[var(--color-warnw)] px-3 py-2 text-sm text-[var(--color-warn)]">
         The system derives the formatted number and number type from the
         selected type. Edit the type to change them.
       </div>
