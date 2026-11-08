@@ -19,7 +19,10 @@ import {
 } from "../schemas";
 import { ReceiptPreview } from "./receipt-preview";
 import { useCreateQueue } from "../hooks/use-create-queue";
-import type { CreateQueueResponse, ReceiptDraft } from "../types";
+import type {
+  CreateQueueResponse,
+  ReceiptDraft,
+} from "../types";
 
 interface AddQueueFormProps {
   onIssued: (data: CreateQueueResponse) => void;
@@ -28,7 +31,11 @@ interface AddQueueFormProps {
 const DEFAULT_FEES = [{ label: "काटा शुल्क", amount: 50 }];
 
 export function AddQueueForm({ onIssued }: AddQueueFormProps) {
-  const { control, handleSubmit, watch } = useForm<AddQueueFormValues>({
+  const {
+    control,
+    handleSubmit,
+    watch,
+  } = useForm<AddQueueFormValues>({
     resolver: zodResolver(addQueueFormSchema),
     defaultValues: {
       vehicleId: "",
@@ -174,16 +181,20 @@ export function AddQueueForm({ onIssued }: AddQueueFormProps) {
             type="tel"
             placeholder="98XXXXXXXX"
           />
+          
+          {/* Updated Button Block */}
           <div className="mt-2 flex justify-end">
             <Button
               type="submit"
               disabled={createMutation.isPending}
+              slideLabel={!createMutation.isPending}
               size="lg"
             >
-              {createMutation.isPending ? "Issuing receipt…" : "Issue receipt"}
+              {createMutation.isPending ? "Adding to queue…" : "Add to queue"}
             </Button>
           </div>
         </div>
+
         <div className="lg:sticky lg:top-4 lg:self-start">
           <h2 className="mb-2 text-sm font-semibold tracking-tight text-[var(--color-fg)]">
             Receipt preview

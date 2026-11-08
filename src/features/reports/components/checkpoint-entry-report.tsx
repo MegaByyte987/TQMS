@@ -32,7 +32,8 @@ export function CheckpointEntryReport() {
   const searchParams = useSearchParams();
 
   const userId = searchParams.get("userId") ?? "";
-  const fromBS = searchParams.get("fromBS") ?? todayBS();
+  // Widen the default range so seed data and recent entries are visible immediately
+  const fromBS = searchParams.get("fromBS") ?? "2083-07-01"; 
   const toBS = searchParams.get("toBS") ?? todayBS();
   const page = clampPage(Number(searchParams.get("page") ?? "1"));
   const pageSize = 25;
@@ -68,14 +69,41 @@ export function CheckpointEntryReport() {
   });
 
   const columns: ColumnDef<CheckpointEntryRow, unknown>[] = [
-    { accessorKey: "s-n", header: "S.N", meta: { align: "right" } },
-    { accessorKey: "sthaniyaSangh", header: "Sthaniya Sangh" },
-    { accessorKey: "checkpoint", header: "Checkpoint" },
-    { accessorKey: "checkpointUser", header: "Checkpoint User" },
+    { 
+      accessorKey: "s-n", 
+      header: "S.N", 
+      meta: { align: "right" },
+      cell: ({ row }) => (
+        <span className="tabular-nums text-[var(--color-mut)]">{row.original["s-n"]}</span>
+      ),
+    },
+    { 
+      accessorKey: "sthaniyaSangh", 
+      header: "Sthaniya Sangh",
+      cell: ({ row }) => (
+        <span className="text-[var(--color-fg)]">{row.original.sthaniyaSangh}</span>
+      ),
+    },
+    { 
+      accessorKey: "checkpoint", 
+      header: "Checkpoint",
+      cell: ({ row }) => (
+        <span className="text-[var(--color-fg)]">{row.original.checkpoint}</span>
+      ),
+    },
+    { 
+      accessorKey: "checkpointUser", 
+      header: "Checkpoint User",
+      cell: ({ row }) => (
+        <span className="text-[var(--color-fg)]">{row.original.checkpointUser}</span>
+      ),
+    },
     {
       accessorKey: "entryDateBS",
       header: "Entry date",
-      cell: ({ row }) => displayBS(row.original.entryDateBS),
+      cell: ({ row }) => (
+        <span className="text-[var(--color-fg)]">{displayBS(row.original.entryDateBS)}</span>
+      ),
     },
     {
       accessorKey: "totalVehicle",
@@ -109,7 +137,7 @@ export function CheckpointEntryReport() {
       <div className="flex flex-col gap-4">
         <FilterBar
           onClear={() =>
-            setUrlParams({ userId: undefined, fromBS: todayBS(), toBS: todayBS(), page: 1 })
+            setUrlParams({ userId: undefined, fromBS: "2083-07-01", toBS: todayBS(), page: 1 })
           }
         >
           <div className="flex flex-col gap-1.5">
@@ -142,7 +170,7 @@ export function CheckpointEntryReport() {
               onChange={(e) =>
                 setUrlParams({ fromBS: e.target.value || undefined, page: 1 })
               }
-              placeholder="2083-07-20"
+              placeholder="2083-07-01"
               className="h-[38px] w-32 rounded-[8px] border-[var(--color-bd)] bg-[var(--color-card)] text-[14px] text-[var(--color-fg)]"
             />
           </div>
@@ -155,31 +183,29 @@ export function CheckpointEntryReport() {
               onChange={(e) =>
                 setUrlParams({ toBS: e.target.value || undefined, page: 1 })
               }
-              placeholder="2083-07-20"
+              placeholder="2083-07-30"
               className="h-[38px] w-32 rounded-[8px] border-[var(--color-bd)] bg-[var(--color-card)] text-[14px] text-[var(--color-fg)]"
             />
           </div>
         </FilterBar>
 
-        <div className="overflow-hidden rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)]">
-          <DataTable<CheckpointEntryRow>
-            columns={columns}
-            data={reportQuery.data?.data ?? []}
-            isLoading={reportQuery.isPending}
-            isError={reportQuery.isError}
-            error={reportQuery.error}
-            onRetry={() => reportQuery.refetch()}
-            pagination={meta}
-            onPageChange={(p) => setUrlParams({ page: p })}
-            onPageSizeChange={() => {}}
-            emptyState={{
-              title: "No activity in this range",
-              description:
-                "Try widening the date range or clearing the user filter.",
-            }}
-            getRowId={(r) => r.id}
-          />
-        </div>
+        <DataTable<CheckpointEntryRow>
+          columns={columns}
+          data={reportQuery.data?.data ?? []}
+          isLoading={reportQuery.isPending}
+          isError={reportQuery.isError}
+          error={reportQuery.error}
+          onRetry={() => reportQuery.refetch()}
+          pagination={meta}
+          onPageChange={(p) => setUrlParams({ page: p })}
+          onPageSizeChange={() => {}}
+          emptyState={{
+            title: "No activity in this range",
+            description:
+              "Try widening the date range or clearing the user filter.",
+          }}
+          getRowId={(r) => r.id}
+        />
       </div>
     </div>
   );

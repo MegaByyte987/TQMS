@@ -28,7 +28,8 @@ export function DetailEntryReport() {
   const { toast } = useToast();
   const [exporting, setExporting] = useState(false);
 
-  const fromBS = searchParams.get("fromBS") ?? todayBS();
+  // Widen the default range so seed data and recent entries are visible immediately
+  const fromBS = searchParams.get("fromBS") ?? "2083-07-01";
   const toBS = searchParams.get("toBS") ?? todayBS();
   const vehicleNo = searchParams.get("vehicleNo") ?? "";
   const goods = searchParams.get("goods") ?? "";
@@ -95,21 +96,78 @@ export function DetailEntryReport() {
   };
 
   const columns: ColumnDef<DetailEntryRow, unknown>[] = [
-    { accessorKey: "s-n", header: "S.N", meta: { align: "right" } },
-    { accessorKey: "dateTime", header: "Date & time" },
-    { accessorKey: "receiptNo", header: "Receipt no.", cell: ({ row }) => <span className="font-mono text-[var(--color-fg)]">{row.original.receiptNo}</span> },
-    { accessorKey: "vehicleNo", header: "Vehicle no." },
-    { accessorKey: "vehicleType", header: "Vehicle type" },
-    { accessorKey: "checkpointName", header: "Checkpoint" },
-    { accessorKey: "route", header: "From → to" },
+    { 
+      accessorKey: "s-n", 
+      header: "S.N", 
+      meta: { align: "right" },
+      cell: ({ row }) => (
+        <span className="tabular-nums text-[var(--color-mut)]">{row.original["s-n"]}</span>
+      ),
+    },
+    { 
+      accessorKey: "dateTime", 
+      header: "Date & time",
+      cell: ({ row }) => (
+        <span className="text-[var(--color-fg)]">{row.original.dateTime}</span>
+      ),
+    },
+    { 
+      accessorKey: "receiptNo", 
+      header: "Receipt no.", 
+      cell: ({ row }) => (
+        <span className="font-mono text-[var(--color-fg)]">{row.original.receiptNo}</span>
+      ),
+    },
+    { 
+      accessorKey: "vehicleNo", 
+      header: "Vehicle no.",
+      cell: ({ row }) => (
+        <span className="text-[var(--color-fg)]">{row.original.vehicleNo}</span>
+      ),
+    },
+    { 
+      accessorKey: "vehicleType", 
+      header: "Vehicle type",
+      cell: ({ row }) => (
+        <span className="text-[var(--color-fg)]">{row.original.vehicleType}</span>
+      ),
+    },
+    { 
+      accessorKey: "checkpointName", 
+      header: "Checkpoint",
+      cell: ({ row }) => (
+        <span className="text-[var(--color-fg)]">{row.original.checkpointName}</span>
+      ),
+    },
+    { 
+      accessorKey: "route", 
+      header: "From → to",
+      cell: ({ row }) => (
+        <span className="text-[var(--color-fg)]">{row.original.route}</span>
+      ),
+    },
     {
       accessorKey: "grossWeightKg",
       header: "Gross weight",
       meta: { align: "right" },
-      cell: ({ row }) => <span className="tabular-nums text-[var(--color-fg)]">{formatWeight(row.original.grossWeightKg)}</span>,
+      cell: ({ row }) => (
+        <span className="tabular-nums text-[var(--color-fg)]">{formatWeight(row.original.grossWeightKg)}</span>
+      ),
     },
-    { accessorKey: "material", header: "Material" },
-    { accessorKey: "remarks", header: "Remarks" },
+    { 
+      accessorKey: "material", 
+      header: "Material",
+      cell: ({ row }) => (
+        <span className="text-[var(--color-fg)]">{row.original.material}</span>
+      ),
+    },
+    { 
+      accessorKey: "remarks", 
+      header: "Remarks",
+      cell: ({ row }) => (
+        <span className="text-[var(--color-mut)]">{row.original.remarks}</span>
+      ),
+    },
   ];
 
   const meta = query.data?.meta ?? { page: 1, pageSize, total: 0, totalPages: 1 };
@@ -137,7 +195,7 @@ export function DetailEntryReport() {
         <FilterBar
           onClear={() =>
             setUrlParams({
-              fromBS: todayBS(),
+              fromBS: "2083-07-01",
               toBS: todayBS(),
               vehicleNo: undefined,
               goods: undefined,
@@ -152,7 +210,7 @@ export function DetailEntryReport() {
               id="det-from"
               value={fromBS}
               onChange={(e) => setUrlParams({ fromBS: e.target.value || undefined, page: 1 })}
-              placeholder="2083-07-20"
+              placeholder="2083-07-01"
               className="h-[38px] w-32 rounded-[8px] border-[var(--color-bd)] bg-[var(--color-card)] text-[14px] text-[var(--color-fg)]"
             />
           </div>
@@ -162,7 +220,7 @@ export function DetailEntryReport() {
               id="det-to"
               value={toBS}
               onChange={(e) => setUrlParams({ toBS: e.target.value || undefined, page: 1 })}
-              placeholder="2083-07-20"
+              placeholder="2083-07-30"
               className="h-[38px] w-32 rounded-[8px] border-[var(--color-bd)] bg-[var(--color-card)] text-[14px] text-[var(--color-fg)]"
             />
           </div>
@@ -198,24 +256,22 @@ export function DetailEntryReport() {
           </div>
         </FilterBar>
 
-        <div className="overflow-hidden rounded-[12px] border border-[var(--color-bd)] bg-[var(--color-card)]">
-          <DataTable<DetailEntryRow>
-            columns={columns}
-            data={query.data?.data ?? []}
-            isLoading={query.isPending}
-            isError={query.isError}
-            error={query.error}
-            onRetry={() => query.refetch()}
-            pagination={meta}
-            onPageChange={(p) => setUrlParams({ page: p })}
-            onPageSizeChange={() => {}}
-            emptyState={{
-              title: "No entries in this range",
-              description: "Widen the date range or clear the filters.",
-            }}
-            getRowId={(r) => r.id}
-          />
-        </div>
+        <DataTable<DetailEntryRow>
+          columns={columns}
+          data={query.data?.data ?? []}
+          isLoading={query.isPending}
+          isError={query.isError}
+          error={query.error}
+          onRetry={() => query.refetch()}
+          pagination={meta}
+          onPageChange={(p) => setUrlParams({ page: p })}
+          onPageSizeChange={() => {}}
+          emptyState={{
+            title: "No entries in this range",
+            description: "Widen the date range or clear the filters.",
+          }}
+          getRowId={(r) => r.id}
+        />
       </div>
     </div>
   );
