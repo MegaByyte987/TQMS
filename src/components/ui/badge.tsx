@@ -14,10 +14,12 @@ const badgeVariants = cva(
         warn: "border-transparent bg-[var(--color-warnw)] text-[var(--color-warn)]",
         bad: "border-transparent bg-[var(--color-badw)] text-[var(--color-bad)]",
         pri: "border-transparent bg-[var(--color-pri)] text-white",
-        muted: "border-transparent bg-gray-100 text-gray-500",
+        // Aliases for shadcn compatibility
         success: "border-transparent bg-[var(--color-okw)] text-[var(--color-ok)]",
-        info: "border-transparent bg-[var(--color-pri)] text-white",
+        info: "border-transparent bg-[var(--color-priw)] text-[var(--color-pri)]",
         warning: "border-transparent bg-[var(--color-warnw)] text-[var(--color-warn)]",
+        destructive: "border-transparent bg-[var(--color-badw)] text-[var(--color-bad)]",
+        muted: "border-transparent bg-[var(--color-ac)] text-[var(--color-mut)]",
       },
     },
     defaultVariants: {
