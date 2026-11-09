@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const PUBLIC_PREFIXES = ["/login", "/api", "/dev"];
+// Added "/" to allow unauthenticated users to see the landing page
+const PUBLIC_PREFIXES = ["/", "/login", "/api", "/dev"];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;

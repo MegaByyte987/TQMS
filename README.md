@@ -2,10 +2,8 @@
 
 > A modern, frontend-focused rebuild of the Transport Queue Management System (TQMS) for the Nepal Truck Transport Entrepreneurs' Federation. This application is a complete, feature-based workflow with a high-fidelity mock backend, built with Next.js 16 and React 19.
 
-[![Deployment Status](https://img.shields.io/badge/Vercel-deployed-success?logo=vercel)](https://tqms-pulse.vercel.app)
-[![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript)](https://www.typescriptlang.org/)
 
-## 📋 Table of Contents
+##  Table of Contents
 
 - [Overview](#-overview)
 - [Key Workflows](#-key-workflows)
@@ -18,7 +16,7 @@
 - [Future Integration](#-future-integration)
 - [Project Documents](#-project-documents)
 
-## 🎯 Overview
+##  Overview
 
 TQMS-Pulse is a complete frontend rebuild of the legacy TQMS application. It solves three core problems for the checkpoint operator:
 
@@ -28,14 +26,14 @@ TQMS-Pulse is a complete frontend rebuild of the legacy TQMS application. It sol
 
 The application is built entirely with a feature-based architecture, making it scalable and maintainable. It uses a realistic mock backend that persists data to `localStorage`, allowing for complete end-to-end testing without a server.
 
-## 🔄 Key Workflows
+##  Key Workflows
 
 The application models the complete journey of a goods vehicle:
 `Receipt Issued` → `Pending Queue` → `Check In` → `In Job` → `End Journey` → `Payment Pending`.
 
 Each step is a validated, user-facing interaction with its own screen, forms, and business rules.
 
-## 🛠 Technology Stack
+##  Technology Stack
 
 | Layer | Technology | Purpose |
 | :--- | :--- | :--- |
@@ -48,60 +46,7 @@ Each step is a validated, user-facing interaction with its own screen, forms, an
 | **Dates** | `nepali-date-converter` | Handling Bikram Sambat (BS) calendar dates |
 | **Icons** | Lucide React | SVG icon library |
 
-## 🏗 Architecture
-
-The project follows a **feature-based architecture**, keeping domain logic separate from presentation.
-# TQMS-Pulse
-
-> A modern, frontend-focused rebuild of the Transport Queue Management System (TQMS) for the Nepal Truck Transport Entrepreneurs' Federation. This application is a complete, feature-based workflow with a high-fidelity mock backend, built with Next.js 16 and React 19.
-
-[![Deployment Status](https://img.shields.io/badge/Vercel-deployed-success?logo=vercel)](https://tqms-pulse.vercel.app)
-[![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript)](https://www.typescriptlang.org/)
-
-## 📋 Table of Contents
-
-- [Overview](#-overview)
-- [Key Workflows](#-key-workflows)
-- [Technology Stack](#-technology-stack)
-- [Architecture](#-architecture)
-- [Getting Started](#-getting-started)
-- [Mock API Documentation](#-mock-api-documentation)
-- [Deployment](#-deployment)
-- [Known Limitations](#-known-limitations)
-- [Future Integration](#-future-integration)
-- [Project Documents](#-project-documents)
-
-## 🎯 Overview
-
-TQMS-Pulse is a complete frontend rebuild of the legacy TQMS application. It solves three core problems for the checkpoint operator:
-
-1.  **Receipt Issuance:** Creating a weighbridge receipt (`रसिद`) and enqueueing a vehicle is a single, validated transaction.
-2.  **Queue Management:** Live monitoring of the **Pending** and **Existing** queues, with status-based actions like `Check In` and `End Journey`.
-3.  **Real-time Insights:** The dashboard can be configured to poll for new pending receipts, providing a near real-time view of the operation.
-
-The application is built entirely with a feature-based architecture, making it scalable and maintainable. It uses a realistic mock backend that persists data to `localStorage`, allowing for complete end-to-end testing without a server.
-
-## 🔄 Key Workflows
-
-The application models the complete journey of a goods vehicle:
-`Receipt Issued` → `Pending Queue` → `Check In` → `In Job` → `End Journey` → `Payment Pending`.
-
-Each step is a validated, user-facing interaction with its own screen, forms, and business rules.
-
-## 🛠 Technology Stack
-
-| Layer | Technology | Purpose |
-| :--- | :--- | :--- |
-| **Framework** | Next.js 16 (App Router) | React framework for routing, server components, and mock API routes |
-| **Language** | TypeScript | Static typing for robustness and developer experience |
-| **UI** | Tailwind CSS, shadcn/ui, Radix UI | Utility-first styling and accessible headless primitives |
-| **Forms** | React Hook Form, Zod | Performant, uncontrolled forms with schema-based validation |
-| **Server State** | TanStack Query (v5) | Caching, background refetching, and request de-duplication |
-| **Tables** | TanStack Table | Headless UI for building powerful tables and datagrids |
-| **Dates** | `nepali-date-converter` | Handling Bikram Sambat (BS) calendar dates |
-| **Icons** | Lucide React | SVG icon library |
-
-## 🏗 Architecture
+##  Architecture
 
 The project follows a **feature-based architecture**, keeping domain logic separate from presentation.
 
@@ -126,7 +71,7 @@ src/
 *   **Shared Components (`src/components`):** Purely presentational, reusable components like `<DataTable>` or `<StatusBadge>`.
 *   **Mock Backend (`src/app/api`):** Route handlers that simulate a real API. Data is persisted to `localStorage` for a realistic session experience.
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Node.js 20.9+ (`nvm use 20` is recommended)
@@ -168,7 +113,7 @@ src/
 
         Password: checkpoint123
 
-## 📡 Mock API Documentation
+##  Mock API Documentation
 The mock backend is built with Next.js Route Handlers and serves data from an in-memory store (src/mocks/db.ts) that persists to localStorage. This allows for complete CRUD functionality without an external database.
 
 ## Core Endpoints
@@ -238,7 +183,3 @@ Detailed documentation is available in the `docs/` directory:
 - **Glossary:** A Nepali-to-English dictionary of domain terms.
 - **Mock API Contract:** A detailed specification of every mock API endpoint.
 - **Architecture Decisions:** ADRs explaining the critical technical choices.
-
----
-
-*Built with ❤️ for modern, enterprise-grade frontend development.*
